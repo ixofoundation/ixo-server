@@ -1,1 +1,1 @@
-# tge-website
+# tge-server

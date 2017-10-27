@@ -35,7 +35,7 @@
     "http-proxy-middleware": "0.16.0",
     "immutable": "3.8.2",
     "node-ensure": "0.0.0",
-    "postcss": "^6.0.12",
+    "postcss": "6.0.12",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-jsonschema-form": "0.40.0",

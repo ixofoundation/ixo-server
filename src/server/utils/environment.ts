@@ -10,11 +10,11 @@ export function isProduction(): boolean {
 }
 
 export function isProductionServer(): boolean {
-    return getHostName().indexOf("www.phonetradr.com") > 0;
+    return getHostName().indexOf("") > 0;
 }
 
 export function isBetaServer(): boolean {
-    return getHostName().indexOf("beta.phonetradr.com") > 0;
+    return getHostName().indexOf("") > 0;
 }
 
 export function isLocalHostProduction(): boolean {

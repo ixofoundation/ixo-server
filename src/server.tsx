@@ -21,6 +21,7 @@ import {getHostName} from "./utils/isomorphic_utils";
 import {getPageTitle} from "./utils/page_title";
 import {getMetaTags} from "./utils/meta_tags";
 import {isProduction, isProductionServer} from "./server/utils/environment";
+import {connectToDb} from "./server/db/config";
 
 const revManifest = getManifest();
 
@@ -126,5 +127,20 @@ app.get('*', (req: any, res: any) => {
 });
 
 const server = http.createServer(app);
+
+// Open a new connection when Node.js app starts, reuse the existing
+// db connection object.  See more: http://bit.ly/2aw94I9
+connectToDb()
+    .then((db) => {
+        console.log('Connected successfully to database server');
+        app.locals.db = db; // Make db accessible through out the application
+        server.listen(port, (err:any) => {
+            if (err) throw err;
+            console.info(`[🚀 ] Server started on port ${port}`); // eslint-disable-line
+        });
+    })
+    .catch(err => console.error(err));
+
+module.exports = app;
 
 module.exports = app;

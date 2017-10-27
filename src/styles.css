@@ -1,0 +1,537 @@
+@font-face {
+    font-family: 'Montserrat Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Montserat Light'), url('/fonts/Montserrat-Light.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Montserat Regular'), url('/fonts/Montserrat-Regular.otf') format('truetype');
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-width: 320px;
+    font-family: 'Montserrat Light', sans-serif;
+    -webkit-overflow-scrolling : touch;
+}
+
+html.pz-modal-open {
+    overflow: auto; /* Needed so mobile safari works correctly with fixed positioned elements */
+}
+body.pz-modal-open {
+    overflow: hidden; /* Set to hidden as the model-open class used to set it */
+}
+
+@media only screen and (max-width: 767px) {
+    body.pz-modal-open {
+        position: fixed; /* Set modal to fix so that only the dialog content is scrollable */
+    }
+}
+
+.pt-regular-font {
+    font-family: 'Montserrat Regular', sans-serif;
+}
+
+.light-gray-gradient {
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(248,248,249,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(248,248,249,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(248,248,249,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(248,248,249,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(248,248,249,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(248,248,249,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f9', GradientType=0 );
+}
+
+.green-purple-gradient {
+    background: rgba(106,187,171, 0.1);
+    background: -moz-linear-gradient(top, rgba(106,187,171, 0.1) 0%, rgba(134,133,192, 0.1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(106,187,171, 0.1)), color-stop(100%, rgba(134,133,192, 0.1)));
+    background: -webkit-linear-gradient(top, rgba(106,187,171, 0.1) 0%, rgba(134,133,192, 0.1) 100%);
+    background: -o-linear-gradient(top, rgba(106,187,171, 0.1) 0%, rgba(134,133,192, 0.1) 100%);
+    background: -ms-linear-gradient(top, rgba(106,187,171, 0.1) 0%, rgba(134,133,192, 0.1) 100%);
+    background: linear-gradient(to bottom, rgba(106,187,171, 0.1) 0%, rgba(134,133,192, 0.1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6ABBAB', endColorstr='#8685C0', GradientType=0 );
+}
+
+.row {
+    margin: 0;
+}
+
+.btn.btn-lg.btn-round {
+    border-radius: 22.5px;
+}
+
+.btn.btn-round {
+    border-radius: 17px;
+}
+
+.btn.btn-sm.btn-round {
+    border-radius: 15px;
+}
+
+.btn.btn-xs.btn-round {
+    border-radius: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn.btn-wide {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.btn.btn-modern {
+    box-shadow: 0 24px 14px -20px rgba(0,0,0,0.25), 0 20px 14px -10px rgba(0,0,0,0.22);
+    transition: all 200ms;
+    border-radius: 100px;
+    margin-bottom: 16px; /* needed for the shadow to be visible */
+}
+
+.btn.btn-modern:active {
+    margin-top: 4px;
+    margin-bottom: 12px;
+    box-shadow: 0 18px 10px -16px rgba(0,0,0,0.25), 0 16px 10px -8px rgba(0,0,0,0.22);
+}
+
+/* When btn-group-round is used (sm), it makes the first button rounded */
+.btn-group.btn-group-sm.btn-group-round > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+/* When btn-group-round is used (sm), it makes the last button rounded */
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child) {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.pt-btn-green {
+    color: #fff;
+    background: #12CCAF;
+    border: 1px solid #12CCAF;
+}
+
+.pt-btn-green:hover,
+.pt-btn-green:focus,
+.pt-btn-green:visited,
+.pt-btn-green:active {
+    color: #fff;
+    background-color: #12CCAF;
+    border-color: #12CCAF;
+}
+
+.pt-btn-purple {
+    color: #fff;
+    background-color: #4F4C7B;
+    border-color: #4F4C7B;
+}
+
+.pt-btn-purple:hover,
+.pt-btn-purple:focus,
+.pt-btn-purple:visited,
+.pt-btn-purple:active {
+    color: #fff;
+    background-color: #5d5991;
+    border-color: #5d5991;
+}
+
+.pt-btn-blue {
+    color: #fff;
+    background: #2F2B64;
+    border: 1px solid #9690FF;
+}
+
+.pt-btn-blue:hover,
+.pt-btn-blue:focus,
+.pt-btn-blue:visited,
+.pt-btn-blue:active {
+    color: #fff;
+    background-color: #9690FF;
+    border-color: #9690FF;
+}
+
+.pt-btn-white {
+    color: #000;
+    background: #fff;
+    border: 1px solid darkgrey;
+}
+
+.pt-btn-white:hover,
+.pt-btn-white:focus,
+.pt-btn-white:visited,
+.pt-btn-white:active,
+.pt-btn-white.-pt-active {
+    color: #fff;
+    background-color: #fff;
+    background-color: #9690ff;
+    border-color: darkgrey;
+}
+
+.-pt-hidden {
+    display: none;
+}
+
+.no-padding {
+    padding: 0;
+}
+.no-padding-right {
+    padding-right: 0;
+}
+
+.pt-check-circle-success {
+    color: #629C44;
+    font-size: 24px;
+}
+
+.pt-cross-circle-fail {
+    color: #B70F0A;
+    font-size: 24px;
+}
+
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pt-sell-ticket-section__title {
+    background: #4F4C7B;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+.pt-sell-ticket-section__last-modified-on {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.pt-sell-ticket-section__edit-btn {
+    float: right;
+    margin-top: -6px;
+}
+
+.reset-ul-styles {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: 0;
+}
+
+.-pt-flipped-horizontally {
+    transform: rotateY(180deg);
+}
+
+.-pt-form-modern {
+    border-bottom: 1px solid #9e99c2;
+    width: 100%;
+}
+
+.-pt-form-modern span.input-group-addon {
+    color: #4F4C7B;
+    width: 50px;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+    background: none;
+}
+
+.-pt-form-modern i.input-group-addon {
+    color: #4F4C7B;
+    width: 50px;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+    background: none;
+}
+
+.-pt-form-modern input.form-control {
+    color: #4F4C7B;
+    background: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    transition: all 0.4s cubic-bezier(.25,.8,.25,1);
+}
+
+.-pt-form-modern *:focus.form-control {
+    background: rgba(59,190,172, 0.05);
+    color: black;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+}
+
+.-pt-form-modern *:disabled.form-control {
+    color: #373737;
+}
+
+.-pt-form-modern + .help-block,
+.-pt-form-modern + .form-group > .help-block{
+    display: block;
+    color: #ff9800;
+    overflow-wrap: break-word;
+    text-align: left;
+    padding-left: 62px;
+}
+
+/* Modern looking checkbox */
+label.pt-checkbox {}
+
+/* hiding the default input field since we are providing a custom one but we can not remove it */
+label.pt-checkbox input {
+    display:none;
+}
+
+label.pt-checkbox span.pt-checkbox__box {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    top: 10px;
+    margin-right: 15px;
+    display: inline-block;
+    border: 1px solid #979797;
+    cursor: pointer;
+}
+label.pt-checkbox span.pt-checkbox__box::after {
+    content: '';
+    width: 18px;
+    height: 11px;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    border: 4px solid #45bdaa;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    transform: rotate(-45deg);
+    visibility: hidden;
+}
+label.pt-checkbox input:checked + span.pt-checkbox__box::after {
+    visibility: visible;
+}
+/* stylesheets for mobile navigation */
+.pt-mobile-navigation {
+    height: 44px;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #2f2564;
+}
+.pt-mobile-navigation__title {
+    display: inline-block;
+    color: #2f2564;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 41px;
+    font-family: 'Montserrat Regular', sans-serif;
+}
+
+.wz-navigation .btn.btn-link,
+.pt-mobile-navigation .btn.btn-link {
+    color: #2f2564;
+    text-decoration: none;
+    font-size: 14px;
+    height: inherit;
+}
+
+.wz-navigation .glyphicon,
+.pt-mobile-navigation .glyphicon,
+.pt-mobile-navigation__filter-btn > span.fa {
+    vertical-align: middle;
+    font-size: 17px;
+}
+/*styles for contact buttons (call, email)
+  this component (ContactButtons) is not part of the isomorphic app \
+  and it doesn’t get included in the styles*/
+
+/* temporarily hide contact-buttons */
+.pte-contact-buttons-wrapper {
+    display: none;
+}
+.pte-contact-btn {
+    position: fixed;
+    bottom: 20px;
+    z-index: 2147483000;
+
+    padding-top: 31px;
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #efefef;
+    background-repeat: no-repeat;
+    background-position: center 9px;
+    background-size: 22px;
+
+    box-shadow: 1px 6px 7px 0px rgba(120, 120, 120, .5);
+
+    text-align: center;
+    font-size: 12px;
+    color: #2F2B64;
+
+    cursor: pointer;
+}
+
+.pte-contact-btn:hover {
+    text-decoration: none;
+    color: #2F2B64;
+}
+
+.pte-contact-btn_call {
+    background-image: url(/images/icons/call.svg);
+    right: 100px;
+}
+
+.pte-contact-btn_mail {
+    background-image: url(/images/icons/email.svg);
+    right: 180px;
+}
+
+.pte-contact-btn_hide-mobile {
+    display: none;
+}
+
+@media screen and (min-width: 480px) {
+    .pte-contact-btn_hide-desktop {
+        display: none;
+    }
+
+    .pte-contact-btn_hide-mobile {
+        display: block;
+    }
+}
+
+/*custom intercom button*/
+.intercom-launcher {
+	backface-visibility: hidden;
+	bottom: 20px;
+	height: 0;
+	opacity: 0;
+	outline: 0;
+	position: fixed;
+	right: 20px;
+	transform: scale(0.5);
+	transform-origin: center;
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	width: 0;
+	z-index: 2147483000;
+}
+
+.intercom-launcher:focus {
+	outline: 0;
+}
+
+.intercom-launcher.intercom-booted {
+	opacity: 1;
+	transform: scale(1);
+    height: 60px;
+    width: 60px;
+}
+
+.intercom-launcher * {
+	cursor: pointer;
+}
+
+.intercom-unread-count {
+	backface-visibility: hidden;
+	background: #fc576b;
+	border-radius: 10px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+	box-sizing: border-box;
+	color: #fff;
+	font-size: 12px;
+	height: 20px;
+	line-height: 20px;
+	min-width: 20px;
+	opacity: 0;
+	padding: 0 4px;
+	position: absolute;
+	right: -2px;
+	text-align: center;
+	top: -2px;
+	transform: scale(0.5);
+	transform-origin: center;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.intercom-unread-count.active {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.intercom-icon-open,
+.intercom-icon-close {
+	bottom: 0;
+	position: absolute;
+	top: 0;
+	transition: transform 0.16s linear, opacity 0.08s linear;
+	width: 100%;
+}
+
+.intercom-icon-open {
+	background-image: url(/images/icons/chat-icon.svg);
+	background-size: 25px;
+	opacity: 1;
+	transform: rotate(0deg) scale(1);
+}
+
+.intercom-open .intercom-icon-open {
+	opacity: 0;
+	transform: rotate(30deg) scale(0);
+}
+
+.intercom-icon-close {
+    background-image: url(/images/icons/close.svg);
+    background-size: 30%;
+    background-position: center;
+	opacity: 0;
+	transform: rotate(-30deg);
+}
+
+.intercom-open .intercom-icon-close {
+	opacity: 1;
+	transform: rotate(0deg);
+}
+
+.pt-flip-image img {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: "FlipH";
+    -ms-filter: "FlipH";
+}

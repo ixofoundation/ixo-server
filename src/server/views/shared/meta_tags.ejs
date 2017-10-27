@@ -1,0 +1,7 @@
+<% if (metaTags) { %>
+    <% for (var name in metaTags) { %>
+        <% if (metaTags.hasOwnProperty(name)) { %>
+<meta name="<%= name %>" content="<%= metaTags[name] %>"/>
+        <% } %>
+    <% } %>
+<% } %>

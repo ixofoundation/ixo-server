@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
+      <meta charset="utf-8">
+
+      <% include shared/page_title.ejs %>
+      <style>
+            <%- bootstrap %>
+            <%- fontAwesomeCustomCss %>
+            <%- stylesCss %>
+            <%- componentsCss %>
+      </style>
+</head>
+<body>
+
+<div id="root"><%- renderedRoot %></div>
+<div id="contact_buttons"></div>
+<% include shared/loadjs.ejs %>
+
+<script>
+    loadjs([
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            "/js/<%= jsWithVersion("public_vendor.js") %>",
+            "/js/<%= jsWithVersion("public_site.js") %>"
+        ], 'bundle', {
+            success: function() {
+
+                var storeState = <%- JSON.stringify(storeState) %>;
+                window.HOST_NAME = "<%- hostName %>";
+                var revManifest = <%- JSON.stringify(revManifest) %>;
+                TGE_SERVER_APP.initialize(storeState, revManifest);
+            },
+            async: false // Fetches them in parallel but loads them in series
+    });
+</script>
+<!-- Loading rest of the css after page load -->
+<noscript id="deferred-styles">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css">
+</noscript>
+<% include shared/load_deferred_styles.ejs %>
+</body>
+</html>

@@ -58,6 +58,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "devDependencies": {
+    "dotenv": "2.0.0",
     "browser-sync": "2.18.13",
     "copy-webpack-plugin": "4.2.0",
     "typescript": "2.5.3",

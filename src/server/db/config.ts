@@ -23,4 +23,7 @@ export function connectToDb(): Promise<Db> {
     // Tell mongodb what promise library to use
     const promiseConfig = {promiseLibrary: Promise};
     return MongoClient.connect(getConnectionURL(), promiseConfig)
+        .then((db: Db) => {
+            return db;
+        });
 }

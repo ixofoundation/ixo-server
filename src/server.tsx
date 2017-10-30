@@ -20,7 +20,7 @@ import {configureAssets} from "./server/utils/assets_config";
 import {getHostName} from "./utils/isomorphic_utils";
 import {getPageTitle} from "./utils/page_title";
 import {getMetaTags} from "./utils/meta_tags";
-import {isProduction, isProductionServer} from "./server/utils/environment";
+import {isLocalHostProduction, isProduction, isProductionServer} from "./server/utils/environment";
 import {connectToDb} from "./server/db/config";
 
 const revManifest = getManifest();
@@ -39,6 +39,8 @@ initVersions(revManifest, componentsCss);
 // Note: Components that are used both by admin panel and public site, are included only inside the public site css so
 // we need to be including the public site css inside admin panel as well.
 resetComponentCSS();
+
+if(!isProduction() || isLocalHostProduction()) { require('dotenv').config(); }
 
 const stylesCssPath = isProduction() ? "dist/css/styles.css" : "build/styles.css";
 const stylesCss = fs.readFileSync(stylesCssPath, "utf8");

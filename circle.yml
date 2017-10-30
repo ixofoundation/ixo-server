@@ -3,7 +3,7 @@ machine:
     version: 6.0.0
 services:
     - mongodb
-    s
+    
 test:
   override:
     - touch .env

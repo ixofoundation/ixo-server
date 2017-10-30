@@ -13,7 +13,6 @@ gulp.task('clean-temp', function() {
     return del(['dist-temp']);
 });
 
-
 gulp.task('js', function () {
     return gulp.src(['dist-temp/*.js'])
         .pipe(rev())
@@ -30,6 +29,14 @@ gulp.task('css', function () {
         .pipe(gulp.dest('dist'));                               // write manifest to dist dir
 });
 
+gulp.task('images', function() {
+    return gulp.src(['public/images/**'])
+        .pipe(gulp.dest('dist/images'))
+        .pipe(rev())
+        .pipe(gulp.dest('dist/images'))
+        .pipe(rev.manifest({path: 'rev-manifest-images.json'}))
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('minify-ejs', function () {
     return gulp.src(['src/server/views/**/*.ejs'])
@@ -73,4 +80,4 @@ gulp.task('minify-css-names', gulpSequence('minify-css-names-minify', 'minify-cs
 
 gulp.task('dependencies', ['js-deps', 'css-deps']);
 
-gulp.task('default', gulpSequence('clean', 'minify-css-names', ['js', 'css', 'minify-ejs', 'dependencies'], 'clean-temp'));
+gulp.task('default', gulpSequence('clean', 'minify-css-names', ['js', 'css', 'images', 'minify-ejs', 'dependencies'], 'clean-temp'));

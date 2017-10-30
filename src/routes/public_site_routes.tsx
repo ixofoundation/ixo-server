@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Route, RouterState} from 'react-router';
 import {AppFromStore} from '../containers/App';
+import '../styles.css';
 import {HomePageFromStore} from "../containers/HomePage";
 
 declare const __WEBPACK_SERVER__;

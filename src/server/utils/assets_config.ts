@@ -19,7 +19,7 @@ export function configureAssets(app: any): void {
     }
 
     // Serving favicon
-    //app.use('/favicon.ico', express.static('./public/images/favicon.ico'));
+    app.use('/favicon.ico', express.static('./public/images/favicon.ico'));
 
     // Adding helper methods to be used within .ejs files
     app.locals.jsWithVersion = jsWithVersion;

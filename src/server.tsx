@@ -13,7 +13,7 @@ import {Provider} from 'react-redux';
 import {getAllComponentsCSS, resetComponentCSS} from './utils/css_styler';
 import {initVersions} from './utils/version';
 import * as CleanCSS from 'clean-css';
-import * as autoprefixer from 'autoprefixer-core';
+import * as autoprefixer from 'autoprefixer';
 import * as postcss from 'postcss';
 import {getManifest} from "./server/utils/rev_manifest";
 import {configureAssets} from "./server/utils/assets_config";

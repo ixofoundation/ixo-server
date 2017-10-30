@@ -78,6 +78,6 @@ gulp.task('minify-css-names-move-css', function() {
 
 gulp.task('minify-css-names', gulpSequence('minify-css-names-minify', 'minify-css-names-move-js', 'minify-css-names-move-css'));
 
-gulp.task('dependencies', ['js-deps', 'css-deps']);
+gulp.task('dependencies', ['css-deps']);
 
 gulp.task('default', gulpSequence('clean', 'minify-css-names', ['js', 'css', 'images', 'minify-ejs', 'dependencies'], 'clean-temp'));

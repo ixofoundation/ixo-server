@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {HomePage} from "./HomePage";
 import {IPublicSiteStoreState} from "../redux/public_site/public_site_reducer";
 import {connect} from 'react-redux';
 
@@ -18,7 +17,7 @@ export class App extends React.Component<IProps, any> {
     public render() {
         return (
             <div>
-               <HomePage name='BOB'/>
+                {this.props.children}
             </div>
         );
     }

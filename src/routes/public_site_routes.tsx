@@ -3,6 +3,7 @@ import {Route, RouterState} from 'react-router';
 import {AppFromStore} from '../containers/App';
 import '../styles.css';
 import {HomePageFromStore} from "../containers/HomePage";
+import {handleHomePageChange, handleHomePageEnter, handleHomePageLeave} from "./utils/react_router_callback_handlers";
 
 declare const __WEBPACK_SERVER__;
 
@@ -21,10 +22,7 @@ function asyncLoadHomePageComponent(nextState: RouterState, callback) {
 
 export const publicSiteRoutes = (
     <Route component={AppFromStore}>
-        <Route path="/" component={HomePageFromStore} >
-            <Route path="wizard/*" />
-        </Route>
-
-        <Route path="/:homeBannerAdId" getComponent={asyncLoadHomePageComponent} />
+        <Route path="/" getComponent={asyncLoadHomePageComponent} component={HomePageFromStore} onEnter={handleHomePageEnter} onChange={handleHomePageChange}
+               onLeave={handleHomePageLeave}/>
     </Route>
 );

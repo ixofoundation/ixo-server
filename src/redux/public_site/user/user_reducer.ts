@@ -1,47 +1,45 @@
+import {AsyncGet} from '../../../lib/redux_utils/async_get';
+import {createReducer} from '../../../lib/redux_utils/reducers';
 import {
-    // Sign in actions
-    USER__SIGN_IN__INIT,
-    USER__SIGN_IN__SUCCESS,
-    USER__SIGN_IN__FAILURE,
+    USER__GENERATE_MNEOMONIC__FAILURE, USER__GENERATE_MNEOMONIC__INIT,
+    USER__GENERATE_MNEOMONIC__SUCCESS
+} from "./user_actions";
 
-} from './user_actions';
-import {createReducer} from "../../../lib/redux_utils/reducers";
 
-export type IUserModelState = {
+export interface IUserModelState {
+    mnemonic: AsyncGet<string>
 }
 
 let initialState: IUserModelState = {
+    mnemonic: AsyncGet.init(null)
 };
 
-
 export let userReducer = createReducer<IUserModelState>(initialState, [
-    // Sign in actions
     {
-        action: USER__SIGN_IN__INIT,
-        handler: (state: IUserModelState, action: USER__SIGN_IN__INIT) => {
+        action: USER__GENERATE_MNEOMONIC__INIT,
+        handler: (state: IUserModelState, action: USER__GENERATE_MNEOMONIC__INIT) => {
             return {
                 ...state,
-                isAuthenticated: false
+                mnemonic: AsyncGet.fetching(state.mnemonic)
             }
         }
     },
     {
-        action: USER__SIGN_IN__SUCCESS,
-        handler: (state: IUserModelState, action: USER__SIGN_IN__SUCCESS) => {
+        action: USER__GENERATE_MNEOMONIC__SUCCESS,
+        handler: (state: IUserModelState, action: USER__GENERATE_MNEOMONIC__SUCCESS) => {
             return {
                 ...state,
-                isAuthenticated: true
+                mnemonic: AsyncGet.fetched(state.mnemonic, action.mnemonic)
             }
         }
     },
     {
-        action: USER__SIGN_IN__FAILURE,
-        handler: (state: IUserModelState, action: USER__SIGN_IN__FAILURE) => {
+        action: USER__GENERATE_MNEOMONIC__FAILURE,
+        handler: (state: IUserModelState, action: USER__GENERATE_MNEOMONIC__FAILURE) => {
             return {
                 ...state,
-                isAuthenticated: false
+                mnemonic: AsyncGet.error(state.mnemonic, action.error)
             }
         }
     }
-
 ]);

@@ -41,6 +41,7 @@
     "@types/react-redux": "4.4.47",
     "@types/react-router": "3.0.5",
     "autoprefixer": "7.1.6",
+    "bip39": "2.4.0",
     "body-parser": "1.15.2",
     "cookie-parser": "1.4.3",
     "copy-webpack-plugin": "4.0.1",

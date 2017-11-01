@@ -2,7 +2,7 @@ import * as React from "react";
 import {addComponentCSS} from "../utils/css_styler";
 import {IPublicSiteStoreState} from "../redux/public_site/public_site_reducer";
 import {connect} from 'react-redux';
-import {GenerateMnemonicFromStore} from "../components/home/GenerateMneomonic";
+import {GenerateMnemonicFromStore} from "../components/home/GenerateMnemonic";
 import {generateMnemonic} from "../redux/public_site/user/user_action_creators";
 import {AsyncGet} from "../lib/redux_utils/async_get";
 

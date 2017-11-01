@@ -34,7 +34,7 @@ body.pz-modal-open {
     }
 }
 
-.pt-regular-font {
+.tge-regular-font {
     font-family: 'Montserrat Regular', sans-serif;
 }
 
@@ -112,69 +112,69 @@ body.pz-modal-open {
     border-bottom-right-radius: 15px;
 }
 
-.pt-btn-green {
+.tge-btn-green {
     color: #fff;
     background: #12CCAF;
     border: 1px solid #12CCAF;
 }
 
-.pt-btn-green:hover,
-.pt-btn-green:focus,
-.pt-btn-green:visited,
-.pt-btn-green:active {
+.tge-btn-green:hover,
+.tge-btn-green:focus,
+.tge-btn-green:visited,
+.tge-btn-green:active {
     color: #fff;
     background-color: #12CCAF;
     border-color: #12CCAF;
 }
 
-.pt-btn-purple {
+.tge-btn-purple {
     color: #fff;
     background-color: #4F4C7B;
     border-color: #4F4C7B;
 }
 
-.pt-btn-purple:hover,
-.pt-btn-purple:focus,
-.pt-btn-purple:visited,
-.pt-btn-purple:active {
+.tge-btn-purple:hover,
+.tge-btn-purple:focus,
+.tge-btn-purple:visited,
+.tge-btn-purple:active {
     color: #fff;
     background-color: #5d5991;
     border-color: #5d5991;
 }
 
-.pt-btn-blue {
+.tge-btn-blue {
     color: #fff;
     background: #2F2B64;
     border: 1px solid #9690FF;
 }
 
-.pt-btn-blue:hover,
-.pt-btn-blue:focus,
-.pt-btn-blue:visited,
-.pt-btn-blue:active {
+.tge-btn-blue:hover,
+.tge-btn-blue:focus,
+.tge-btn-blue:visited,
+.tge-btn-blue:active {
     color: #fff;
     background-color: #9690FF;
     border-color: #9690FF;
 }
 
-.pt-btn-white {
+.tge-btn-white {
     color: #000;
     background: #fff;
     border: 1px solid darkgrey;
 }
 
-.pt-btn-white:hover,
-.pt-btn-white:focus,
-.pt-btn-white:visited,
-.pt-btn-white:active,
-.pt-btn-white.-pt-active {
+.tge-btn-white:hover,
+.tge-btn-white:focus,
+.tge-btn-white:visited,
+.tge-btn-white:active,
+.tge-btn-white.-tge-active {
     color: #fff;
     background-color: #fff;
     background-color: #9690ff;
     border-color: darkgrey;
 }
 
-.-pt-hidden {
+.-tge-hidden {
     display: none;
 }
 
@@ -185,12 +185,12 @@ body.pz-modal-open {
     padding-right: 0;
 }
 
-.pt-check-circle-success {
+.tge-check-circle-success {
     color: #629C44;
     font-size: 24px;
 }
 
-.pt-cross-circle-fail {
+.tge-cross-circle-fail {
     color: #B70F0A;
     font-size: 24px;
 }
@@ -214,20 +214,20 @@ body.pz-modal-open {
     text-overflow: ellipsis;
 }
 
-.pt-sell-ticket-section__title {
+.tge-sell-ticket-section__title {
     background: #4F4C7B;
     padding: 10px;
     color: white;
     font-size: 20px;
 }
 
-.pt-sell-ticket-section__last-modified-on {
+.tge-sell-ticket-section__last-modified-on {
     font-size: 12px;
     font-weight: normal;
     margin-left: 10px;
 }
 
-.pt-sell-ticket-section__edit-btn {
+.tge-sell-ticket-section__edit-btn {
     float: right;
     margin-top: -6px;
 }
@@ -247,16 +247,16 @@ body.pz-modal-open {
     outline: 0;
 }
 
-.-pt-flipped-horizontally {
+.-tge-flipped-horizontally {
     transform: rotateY(180deg);
 }
 
-.-pt-form-modern {
+.-tge-form-modern {
     border-bottom: 1px solid #9e99c2;
     width: 100%;
 }
 
-.-pt-form-modern span.input-group-addon {
+.-tge-form-modern span.input-group-addon {
     color: #4F4C7B;
     width: 50px;
     text-align: left;
@@ -265,7 +265,7 @@ body.pz-modal-open {
     background: none;
 }
 
-.-pt-form-modern i.input-group-addon {
+.-tge-form-modern i.input-group-addon {
     color: #4F4C7B;
     width: 50px;
     text-align: left;
@@ -274,7 +274,7 @@ body.pz-modal-open {
     background: none;
 }
 
-.-pt-form-modern input.form-control {
+.-tge-form-modern input.form-control {
     color: #4F4C7B;
     background: none;
     outline: none;
@@ -285,7 +285,7 @@ body.pz-modal-open {
     transition: all 0.4s cubic-bezier(.25,.8,.25,1);
 }
 
-.-pt-form-modern *:focus.form-control {
+.-tge-form-modern *:focus.form-control {
     background: rgba(59,190,172, 0.05);
     color: black;
     outline: none;
@@ -295,12 +295,12 @@ body.pz-modal-open {
     border-radius: 0;
 }
 
-.-pt-form-modern *:disabled.form-control {
+.-tge-form-modern *:disabled.form-control {
     color: #373737;
 }
 
-.-pt-form-modern + .help-block,
-.-pt-form-modern + .form-group > .help-block{
+.-tge-form-modern + .help-block,
+.-tge-form-modern + .form-group > .help-block{
     display: block;
     color: #ff9800;
     overflow-wrap: break-word;
@@ -309,14 +309,14 @@ body.pz-modal-open {
 }
 
 /* Modern looking checkbox */
-label.pt-checkbox {}
+label.tge-checkbox {}
 
 /* hiding the default input field since we are providing a custom one but we can not remove it */
-label.pt-checkbox input {
+label.tge-checkbox input {
     display:none;
 }
 
-label.pt-checkbox span.pt-checkbox__box {
+label.tge-checkbox span.tge-checkbox__box {
     width: 28px;
     height: 28px;
     position: relative;
@@ -326,7 +326,7 @@ label.pt-checkbox span.pt-checkbox__box {
     border: 1px solid #979797;
     cursor: pointer;
 }
-label.pt-checkbox span.pt-checkbox__box::after {
+label.tge-checkbox span.tge-checkbox__box::after {
     content: '';
     width: 18px;
     height: 11px;
@@ -340,17 +340,17 @@ label.pt-checkbox span.pt-checkbox__box::after {
     transform: rotate(-45deg);
     visibility: hidden;
 }
-label.pt-checkbox input:checked + span.pt-checkbox__box::after {
+label.tge-checkbox input:checked + span.tge-checkbox__box::after {
     visibility: visible;
 }
 /* stylesheets for mobile navigation */
-.pt-mobile-navigation {
+.tge-mobile-navigation {
     height: 44px;
     text-align: center;
     background-color: #f2f2f2;
     border-bottom: 1px solid #2f2564;
 }
-.pt-mobile-navigation__title {
+.tge-mobile-navigation__title {
     display: inline-block;
     color: #2f2564;
     font-weight: bold;
@@ -360,7 +360,7 @@ label.pt-checkbox input:checked + span.pt-checkbox__box::after {
 }
 
 .wz-navigation .btn.btn-link,
-.pt-mobile-navigation .btn.btn-link {
+.tge-mobile-navigation .btn.btn-link {
     color: #2f2564;
     text-decoration: none;
     font-size: 14px;
@@ -368,8 +368,8 @@ label.pt-checkbox input:checked + span.pt-checkbox__box::after {
 }
 
 .wz-navigation .glyphicon,
-.pt-mobile-navigation .glyphicon,
-.pt-mobile-navigation__filter-btn > span.fa {
+.tge-mobile-navigation .glyphicon,
+.tge-mobile-navigation__filter-btn > span.fa {
     vertical-align: middle;
     font-size: 17px;
 }
@@ -378,10 +378,10 @@ label.pt-checkbox input:checked + span.pt-checkbox__box::after {
   and it doesn’t get included in the styles*/
 
 /* temporarily hide contact-buttons */
-.pte-contact-buttons-wrapper {
+.tgee-contact-buttons-wrapper {
     display: none;
 }
-.pte-contact-btn {
+.tgee-contact-btn {
     position: fixed;
     bottom: 20px;
     z-index: 2147483000;
@@ -406,31 +406,31 @@ label.pt-checkbox input:checked + span.pt-checkbox__box::after {
     cursor: pointer;
 }
 
-.pte-contact-btn:hover {
+.tgee-contact-btn:hover {
     text-decoration: none;
     color: #2F2B64;
 }
 
-.pte-contact-btn_call {
+.tgee-contact-btn_call {
     background-image: url(/images/icons/call.svg);
     right: 100px;
 }
 
-.pte-contact-btn_mail {
+.tgee-contact-btn_mail {
     background-image: url(/images/icons/email.svg);
     right: 180px;
 }
 
-.pte-contact-btn_hide-mobile {
+.tgee-contact-btn_hide-mobile {
     display: none;
 }
 
 @media screen and (min-width: 480px) {
-    .pte-contact-btn_hide-desktop {
+    .tgee-contact-btn_hide-desktop {
         display: none;
     }
 
-    .pte-contact-btn_hide-mobile {
+    .tgee-contact-btn_hide-mobile {
         display: block;
     }
 }
@@ -527,7 +527,7 @@ label.pt-checkbox input:checked + span.pt-checkbox__box::after {
 	transform: rotate(0deg);
 }
 
-.pt-flip-image img {
+.tge-flip-image img {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);

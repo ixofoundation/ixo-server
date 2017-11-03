@@ -20,9 +20,11 @@ function asyncLoadHomePageComponent(nextState: RouterState, callback) {
     return undefined;
 }
 
+
 export const publicSiteRoutes = (
     <Route component={AppFromStore}>
         <Route path="/" getComponent={asyncLoadHomePageComponent} component={HomePageFromStore} onEnter={handleHomePageEnter} onChange={handleHomePageChange}
                onLeave={handleHomePageLeave}/>
+
     </Route>
 );

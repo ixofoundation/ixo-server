@@ -10,25 +10,23 @@ addComponentCSS({
     //language=CSS
     default: `
         .tge-generate-mnemonic {
-            min-width: 320px;
-            color: #2f2564;
-            background-image: linear-gradient(to bottom, #ffffff, #f1f0fe);
+            margin: 0px 10px 0px 10px;
         }
-
         .tge-generate-mnemonic__button {
+            margin-top: 5px;
             font-size: 16px;
-            padding: 18px 0;
-            width: 170px;
+            padding: 5px 5px;
         }
     `
 });
 
 interface IProperties {
     mnemonic?: AsyncGet<string>
+    onDone: (mnemonic: string) => void
 }
 
 interface ICallbacks {
-    noGenerateMnemonic?: () => void
+    onGenerateMnemonic?: () => void
 }
 
 interface IProps extends IProperties, ICallbacks {
@@ -50,12 +48,13 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
     }
 
     public componentDidMount() {
-        this.props.noGenerateMnemonic();
+        this.props.onGenerateMnemonic();
     }
 
     componentDidUpdate(prevProps: IProps) {
         if (prevProps.mnemonic.value != this.props.mnemonic.value) {
-            this.setState({finalMnemonic: this.props.mnemonic.value["mnemonic"]});
+            this.setState({finalMnemonic: prevProps.mnemonic.value["mnemonic"]});
+            this.props.onDone(prevProps.mnemonic.value["mnemonic"]);
         }
     }
 
@@ -66,21 +65,27 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
                 <h3>
                     Please remember this mnemonic:
                 </h3>
-                <h4>
-                    {this.state.finalMnemonic}
-                </h4>
-                <button
-                    className="tge-generate-mnemonic__button btn btn-modern tge-btn-purple btn-round-lg btn-lg"
-                    type="button" onClick={this.props.noGenerateMnemonic}>
-                    Generate
-                </button>
 
-                <CopyToClipboard text={this.state.finalMnemonic}
-                                 onCopy={() => this.setState({copied: true})}>
-                    <button className="tge-generate-mnemonic__button btn btn-modern tge-btn-purple btn-round-lg btn-lg">
-                        Copy
+                <div>
+                    {this.state.finalMnemonic}
+                </div>
+                <div>
+                    <button
+                        className="tge-generate-mnemonic__button btn btn-modern tge-btn-purple btn-round-lg btn-lg"
+                        type="button" onClick={this.props.onGenerateMnemonic}>
+                        Generate
                     </button>
-                </CopyToClipboard>
+                </div>
+                <div>
+                    <CopyToClipboard text={this.state.finalMnemonic}
+                                     onCopy={() => this.setState({copied: true})}>
+                        <button
+                            className="tge-generate-mnemonic__button btn btn-modern tge-btn-purple btn-round-lg btn-lg">
+                            Copy
+                        </button>
+                    </CopyToClipboard>
+                </div>
+
             </div>
         );
     }
@@ -94,13 +99,14 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
 
 function mapStateToProps(state: IPublicSiteStoreState, ownProps: IProps): IProperties {
     return {
-        mnemonic: state.userStore.mnemonic
+        mnemonic: state.userStore.mnemonic,
+        onDone: ownProps.onDone
     };
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-        noGenerateMnemonic: () => {
+        onGenerateMnemonic: () => {
             dispatch(generateMnemonic());
         }
     };

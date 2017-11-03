@@ -6,6 +6,7 @@ import {generateSDID} from "../../redux/public_site/user/user_action_creators";
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {ISovrinDidModel} from "../../server/db/models";
+
 var JSONPretty = require('react-json-pretty');
 
 addComponentCSS({
@@ -54,6 +55,9 @@ export class GenerateSDID extends React.Component<IProps, IState> {
     componentDidUpdate(prevProps: IProps) {
         if (prevProps.sdid.value != this.props.sdid.value) {
             this.setState({finalSDID: this.props.sdid.value});
+        }
+        if (prevProps.mnemonic != this.props.mnemonic) {
+            this.props.onGenerateSDID();
         }
     }
 

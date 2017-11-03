@@ -63,6 +63,7 @@
     "node-ensure": "0.0.0",
     "postcss": "6.0.12",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.5",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "15.6.1",
     "react-json-pretty": "^1.7.4",

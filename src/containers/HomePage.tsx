@@ -26,65 +26,21 @@ interface IProperties {
 }
 
 interface ICallbacks {
-    onGenerateMnemonic?: () => void
 }
 
 interface IProps extends IProperties, ICallbacks {
 }
 
 interface IState {
-    isNextClicked: boolean
-    buttonText: string
-    mnemonic: string
 }
 
 
 export class HomePage extends React.Component<IProps, IState> {
 
-    public constructor(props: IProps, context?: any) {
-        super(props, context);
-        this.state = {
-            isNextClicked: false,
-            buttonText: "Next",
-            mnemonic: null
-        };
-        this.onNextClicked = this.onNextClicked.bind(this);
-        this.storeMnemonic =this.storeMnemonic.bind(this);
-    }
-
-    private onNextClicked() {
-        if(!this.state.isNextClicked){
-            this.setState({isNextClicked: true, buttonText: "Back", mnemonic: this.state.mnemonic});
-        } else{
-            this.setState({isNextClicked: false, buttonText: "Next", mnemonic: this.state.mnemonic});
-        }
-    }
-
-    private storeMnemonic(mnemonic: string) {
-        this.setState({mnemonic: mnemonic});
-    }
 
     render() {
         return <div className="tge-home-page">
-
-            {renderIf(this.state.isNextClicked, {
-                ifTrue : () => (
-                    <div>
-                        <GenerateSDIDFromStore mnemonic={this.state.mnemonic}/>
-                    </div>
-                ),
-                ifFalse: () => (
-                    <div>
-                        <GenerateMnemonicFromStore onDone={this.storeMnemonic}/>
-                    </div>
-                )
-            })}
-            <button
-                className="tge-home-page__button btn btn-modern tge-btn-purple btn-round-lg btn-lg"
-                onClick={this.onNextClicked}>
-                {this.state.buttonText}
-            </button>
-
+            <GenerateMnemonicFromStore/>
         </div>;
     }
 }
@@ -96,13 +52,11 @@ export class HomePage extends React.Component<IProps, IState> {
 /*=================================================================*/
 
 function mapStateToProps(state: IPublicSiteStoreState, ownProps: IProps): IProperties {
-    return {
-    }
+    return {}
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
-    return {
-    }
+    return {}
 }
 
 export const HomePageFromStore = connect(

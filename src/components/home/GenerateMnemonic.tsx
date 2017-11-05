@@ -4,10 +4,12 @@ import {AsyncGet} from "../../lib/redux_utils/async_get";
 import {IPublicSiteStoreState} from "../../redux/public_site/public_site_reducer";
 import {generateMnemonic} from "../../redux/public_site/user/user_action_creators";
 import {connect} from 'react-redux';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {SplitButton, DropdownButton, MenuItem} from 'react-bootstrap';
 import {renderIfTrue} from "../../utils/react_utils";
 import {GenerateSDIDFromStore} from "./GenerateSDID";
+import {imageWithVersion} from "../../utils/version";
+
+declare const Clipboard;
 
 addComponentCSS({
     //language=CSS
@@ -16,20 +18,21 @@ addComponentCSS({
             margin: 0px 10px 0px 10px;
         }
 
-        .tge-generate-mnemonic__button {
-            margin-top: 5px;
-            font-size: 16px;
-            padding: 5px 5px;
+        .tge-generate-mnemonic__img {
+            margin-top: -3px;
+            position: relative;
+            top: 3px;
+            width: 15px;
         }
 
-        .tge-generate-mnemonic__button-copy {
-            border: none;
-            margin-left: -5px;
-            background: transparent;
+        .tge-generate-mnemonic__btn {
+            margin: 0px 10px 0px 10px;
         }
 
-        .tge-generate-mnemonic__split-button {
-            border-radius: 4px;
+        .tge-generate-mnemonic__text-area {
+            margin-top: 10px;
+            background-color: black;
+            color: lawngreen;
         }
     `
 });
@@ -55,14 +58,37 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
     public constructor(props: IProps, context?: any) {
         super(props, context);
         this.state = {
-            finalMnemonic: null,
+            finalMnemonic: "",
             copied       : false
         };
+        this.renderCopyToClipboardSection = this.renderCopyToClipboardSection.bind(this);
     }
 
-    public componentDidMount() {
+    componentDidMount() {
         this.props.onGenerateMnemonic();
+
+        var clipboard = new Clipboard('.btn');
+
+        clipboard.on('success', function (e) {
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+            showTooltip(e.trigger, 'Copied!');
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+
+        function showTooltip(elem, msg) {
+            elem.setAttribute('class', 'btn tooltipped tooltipped-s');
+            elem.setAttribute('aria-label', msg);
+        }
+
     }
+
 
     componentDidUpdate(prevProps: IProps) {
         if (prevProps.mnemonic.value != this.props.mnemonic.value) {
@@ -71,32 +97,46 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
         }
     }
 
+    private renderCopyToClipboardSection(): JSX.Element {
+        var buttonImage = '/images/' + imageWithVersion('clippy.svg');
+        return (
+            <div className="input-group">
+                <input id="mnemonic" type="text"
+                       value={this.state.finalMnemonic}/>
+                <span className="input-group-button">
+                    <button className="btn" data-clipboard-target="#mnemonic" aria-label="Copied">
+                        <img className="tge-generate-mnemonic__img" src={buttonImage}/>
+                    </button>
+                </span>
+                <span className="tge-generate-mnemonic__btn">
+                    <button className="tge-generate-mnemonic__btn btn" onClick={this.props.onGenerateMnemonic}>
+                        Generate
+                    </button>
+                </span>
+            </div>
+        )
+
+    }
+
     public render(): JSX.Element {
 
         return (
             <div className="tge-generate-mnemonic">
-                <h3>
+                <h2>
                     Please remember this mnemonic:
-                </h3>
-                <SplitButton title={this.state.finalMnemonic} pullRight id="split-button-pull-right"
-                             className="tge-generate-mnemonic__split-button">
-                    <MenuItem eventKey="1" onClick={this.props.onGenerateMnemonic}>Generate</MenuItem>
-                    <MenuItem eventKey="2"><CopyToClipboard text={this.state.finalMnemonic}
-                                                            onCopy={() => this.setState({copied: true})}>
-                        <button className="tge-generate-mnemonic__button-copy">
-                            Copy
-                        </button>
-                    </CopyToClipboard></MenuItem>
-                </SplitButton>
+                </h2>
+                {this.renderCopyToClipboardSection()}
                 {
                     renderIfTrue(this.state.finalMnemonic !== null, () =>
-                        <div>
+                        <div className="tge-generate-mnemonic__text-area">
                             <GenerateSDIDFromStore mnemonic={this.state.finalMnemonic}/>
                         </div>
-                    )}
+                    )
+                }
 
             </div>
-        );
+        )
+            ;
     }
 }
 

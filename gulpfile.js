@@ -49,7 +49,7 @@ gulp.task('minify-ejs', function () {
 
 
 gulp.task('css-deps', function() {
-    return gulp.src(['build/*font-awesome-custom/**/*', 'build/*bootstrap/**/*'])
+    return gulp.src(['build/*font-awesome-custom/**/*', 'build/*bootstrap/**/*', 'build/*primer/**/*'])
         .pipe(gulp.dest('dist/css'));
 });
 

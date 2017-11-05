@@ -4,7 +4,6 @@ import {AsyncGet} from "../../lib/redux_utils/async_get";
 import {IPublicSiteStoreState} from "../../redux/public_site/public_site_reducer";
 import {generateSDID} from "../../redux/public_site/user/user_action_creators";
 import {connect} from 'react-redux';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {ISovrinDidModel} from "../../server/db/models";
 
 var JSONPretty = require('react-json-pretty');

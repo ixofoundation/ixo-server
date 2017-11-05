@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
-      <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <% include shared/page_title.ejs %>
-      <style>
-            <%- bootstrap %>
-            <%- fontAwesomeCustomCss %>
-            <%- stylesCss %>
-            <%- componentsCss %>
-      </style>
+    <% include shared/page_title.ejs %>
+    <style>
+        <%- bootstrap %>
+        <%- primer %>
+        <%- fontAwesomeCustomCss %>
+        <%- stylesCss %>
+        <%- componentsCss %>
+    </style>
 </head>
 <body>
 
@@ -20,19 +21,20 @@
 
 <script>
     loadjs([
-            'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            "/js/<%= jsWithVersion("public_vendor.js") %>",
-            "/js/<%= jsWithVersion("public_site.js") %>"
-        ], 'bundle', {
-            success: function() {
+        "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
+        "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js",
+        "/js/<%= jsWithVersion("public_vendor.js") %>",
+        "/js/<%= jsWithVersion("public_site.js") %>"
+    ], 'bundle', {
+        success: function () {
 
-                var storeState = <%- JSON.stringify(storeState) %>;
-                window.HOST_NAME = "<%- hostName %>";
-                var revManifest = <%- JSON.stringify(revManifest) %>;
-                TGE_SERVER_APP.initialize(storeState, revManifest);
-            },
-            async: false // Fetches them in parallel but loads them in series
+            var storeState = <%- JSON.stringify(storeState) %>;
+            window.HOST_NAME = "<%- hostName %>";
+            var revManifest = <%- JSON.stringify(revManifest) %>;
+            TGE_SERVER_APP.initialize(storeState, revManifest);
+        },
+        async: false // Fetches them in parallel but loads them in series
     });
 </script>
 <!-- Loading rest of the css after page load -->

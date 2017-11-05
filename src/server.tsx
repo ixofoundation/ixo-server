@@ -48,9 +48,11 @@ const stylesCss = fs.readFileSync(stylesCssPath, "utf8");
 const fontAwesomeCustomCssPath = isProduction() ? "dist/css/font-awesome-custom/css/font-awesome-custom.css" : "build/font-awesome-custom/css/font-awesome-custom.css";
 
 const bootstrapCustomCssPath = isProduction() ? "dist/css/bootstrap/css/bootstrap.min.css" : "build/bootstrap/css/bootstrap.min.css";
+const primerCustomCssPath = isProduction() ? "dist/css/primer/css/primer.min.css" : "build/primer/css/primer.min.css";
 
 const fontAwesomeCustomCss = fs.readFileSync(fontAwesomeCustomCssPath, "utf8");
 const bootstrap = fs.readFileSync(bootstrapCustomCssPath);
+const primer = fs.readFileSync(primerCustomCssPath);
 
 
 const port = (parseInt(process.env.PORT, 10) || 3000) - (!isProduction() as any);
@@ -108,6 +110,7 @@ app.get('*', (req: any, res: any) => {
                     // Respond with EJS template
                     res.render('index', {
                         bootstrap,
+                        primer,
                         revManifest,
                         componentsCss: prefixedComponentsCss.css,
                         stylesCss: prefixedStylesCss.css,

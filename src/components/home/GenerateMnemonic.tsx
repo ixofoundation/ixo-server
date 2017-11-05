@@ -18,6 +18,10 @@ addComponentCSS({
             margin: 0px 10px 0px 10px;
         }
 
+        .tge-generate-mnemonic_wrapper {
+            margin-left: 20px;
+        }
+
         .tge-generate-mnemonic__img {
             margin-top: -3px;
             position: relative;
@@ -25,8 +29,13 @@ addComponentCSS({
             width: 15px;
         }
 
+        .tge-generate-mnemonic__logo {
+            position: relative;
+            width: 300px;
+        }
+
         .tge-generate-mnemonic__btn {
-            position:absolute;
+            position: absolute;
             right: 15px;
             margin-top: 15px;
         }
@@ -112,28 +121,31 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
+        var logo = '/images/' + imageWithVersion('ixo-logo.png');
 
         return (
             <div className="tge-generate-mnemonic">
-                <h2>
-                    Please remember this mnemonic:
-                </h2>
-                {this.renderCopyToClipboardSection()}
-                <div className="tge-generate-mnemonic__btn">
-                    <button className="btn" onClick={this.props.onGenerateMnemonic}>
-                        Generate
-                    </button>
+                <img className="tge-generate-mnemonic__logo" src={logo}/>
+                <div className="tge-generate-mnemonic_wrapper">
+                    <h2>
+                        Please remember this mnemonic:
+                    </h2>
+                    {this.renderCopyToClipboardSection()}
+                    <div className="tge-generate-mnemonic__btn">
+                        <button className="btn" onClick={this.props.onGenerateMnemonic}>
+                            Generate
+                        </button>
+                    </div>
+
+
+                    {
+                        renderIfTrue(this.state.finalMnemonic !== null, () =>
+                            <div className="tge-generate-mnemonic__text-area">
+                                <GenerateSDIDFromStore mnemonic={this.state.finalMnemonic}/>
+                            </div>
+                        )
+                    }
                 </div>
-
-
-                {
-                    renderIfTrue(this.state.finalMnemonic !== null, () =>
-                        <div className="tge-generate-mnemonic__text-area">
-                            <GenerateSDIDFromStore mnemonic={this.state.finalMnemonic}/>
-                        </div>
-                    )
-                }
-
             </div>
         )
             ;

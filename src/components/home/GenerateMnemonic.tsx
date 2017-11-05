@@ -43,6 +43,7 @@ addComponentCSS({
         .tge-generate-mnemonic__text-area {
             padding: 10px 0px 10px 0px;
             width: auto;
+            border-radius: 2px;
             margin-top: 10px;
             background-color: black;
             color: lawngreen;

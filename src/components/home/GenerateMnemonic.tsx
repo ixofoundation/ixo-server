@@ -26,10 +26,14 @@ addComponentCSS({
         }
 
         .tge-generate-mnemonic__btn {
-            margin: 0px 10px 0px 10px;
+            position:absolute;
+            right: 15px;
+            margin-top: 15px;
         }
 
         .tge-generate-mnemonic__text-area {
+            padding: 10px 0px 10px 0px;
+            width: auto;
             margin-top: 10px;
             background-color: black;
             color: lawngreen;
@@ -66,13 +70,9 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
 
     componentDidMount() {
         this.props.onGenerateMnemonic();
-
         var clipboard = new Clipboard('.btn');
 
         clipboard.on('success', function (e) {
-            console.info('Action:', e.action);
-            console.info('Text:', e.text);
-            console.info('Trigger:', e.trigger);
             showTooltip(e.trigger, 'Copied!');
             e.clearSelection();
         });
@@ -86,14 +86,12 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
             elem.setAttribute('class', 'btn tooltipped tooltipped-s');
             elem.setAttribute('aria-label', msg);
         }
-
     }
 
 
     componentDidUpdate(prevProps: IProps) {
         if (prevProps.mnemonic.value != this.props.mnemonic.value) {
             this.setState({finalMnemonic: prevProps.mnemonic.value["mnemonic"]});
-
         }
     }
 
@@ -106,11 +104,6 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
                 <span className="input-group-button">
                     <button className="btn" data-clipboard-target="#mnemonic" aria-label="Copied">
                         <img className="tge-generate-mnemonic__img" src={buttonImage}/>
-                    </button>
-                </span>
-                <span className="tge-generate-mnemonic__btn">
-                    <button className="tge-generate-mnemonic__btn btn" onClick={this.props.onGenerateMnemonic}>
-                        Generate
                     </button>
                 </span>
             </div>
@@ -126,6 +119,13 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
                     Please remember this mnemonic:
                 </h2>
                 {this.renderCopyToClipboardSection()}
+                <div className="tge-generate-mnemonic__btn">
+                    <button className="btn" onClick={this.props.onGenerateMnemonic}>
+                        Generate
+                    </button>
+                </div>
+
+
                 {
                     renderIfTrue(this.state.finalMnemonic !== null, () =>
                         <div className="tge-generate-mnemonic__text-area">

@@ -100,7 +100,7 @@ export class GenerateMnemonic extends React.Component<IProps, IState> {
 
 
     componentDidUpdate(prevProps: IProps) {
-        if (prevProps.mnemonic.value != this.props.mnemonic.value) {
+        if (prevProps.mnemonic.value != null && prevProps.mnemonic.value != this.props.mnemonic.value) {
             this.setState({finalMnemonic: prevProps.mnemonic.value["mnemonic"]});
         }
     }

@@ -2,8 +2,6 @@ import * as crypto from 'crypto';
 import * as sovrinDID from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
 
-
-
 export function generateBip39Mnemonic(): Promise<any> {
     var bip39 = require('bip39');
     return bip39.generateMnemonic();

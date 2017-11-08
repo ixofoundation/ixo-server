@@ -1,4 +1,7 @@
 var bip39 = require('bip39');
+var figlet = require('figlet');
+var chalk = require('chalk');
+var inquirer = require('inquirer');
 
 module.exports = function generateMnemonicCommand(program) {
     'use strict';
@@ -8,17 +11,46 @@ module.exports = function generateMnemonicCommand(program) {
     }
 
     program
-        .command('mnemonic <command>')
+        .command('start')
         .description('Generates Mnemonic')
-        .action(function(command) {
-                if(command == 'generate'){
-                    console.log('Mnemonic : ' + generateBip39Mnemonic());
+        .action(function (command) {
 
-                } else {
-                    console.log('Please enter the correct command');
-                }
-        }
+                console.log(
+                    chalk.blue(
+                        figlet.textSync('IXO Protocol', {horizontalLayout: 'full'})
+                    )
+                );
 
-        );
+                console.log('Hi, welcome to the IXO Protocol CLI:');
 
-};
+                var questions = [
+                        {
+                            type: 'input',
+                            name: 'mnemonic',
+                            message: 'Do you want to generate a mnemonic? y/n',
+                            validate: function (value) {
+                                if (value == 'y') {
+                                    console.log(
+                                        chalk.red(
+                                            '\nMnemonic: ' + generateBip39Mnemonic()
+                                        )
+                                    );
+                                    return true;
+                                } else {
+                                    return 'You know you want to...';
+                                }
+                            }
+                        }
+                    ]
+                ;
+
+                inquirer.prompt(questions).then(function (answers) {
+                    console.log(JSON.stringify(answers, null, '  '));
+                });
+
+            }
+        )
+    ;
+
+}
+;

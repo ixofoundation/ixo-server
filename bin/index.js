@@ -18,7 +18,7 @@ program
 program.prompt = require('prompt');
 program.prompt.message = '';
 program.prompt.delimiter = '';
-program.prompt.colors = false;
+program.prompt.colors = true;
 
 // Turn off colors when non-interactive
 var colors = require('colors');

@@ -17,11 +17,11 @@ module.exports = function generateMnemonicCommand(program) {
 
                 console.log(
                     chalk.blue(
-                        figlet.textSync('IXO Protocol', {horizontalLayout: 'full'})
+                        figlet.textSync('ixo Protocol', {horizontalLayout: 'full'})
                     )
                 );
 
-                console.log('Hi, welcome to the IXO Protocol CLI:');
+                console.log('Hi, welcome to the ixo Protocol CLI:');
 
                 var questions = [
                         {

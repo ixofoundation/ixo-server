@@ -10,7 +10,7 @@ module.exports = function generateMnemonicCommand(program) {
         .command('generateMnemonic')
         .description('Generates Mnemonic')
         .action(function () {
-            
+
                 console.log(
                     chalk.blue(
                         figlet.textSync('ixo Protocol', {horizontalLayout: 'standard'})

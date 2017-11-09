@@ -17,7 +17,7 @@ module.exports = function generateMnemonicCommand(program) {
 
                 console.log(
                     chalk.blue(
-                        figlet.textSync('ixo Protocol', {horizontalLayout: 'full'})
+                        figlet.textSync('ixo Protocol', {horizontalLayout: 'standard'})
                     )
                 );
 

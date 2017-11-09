@@ -1,19 +1,16 @@
-var bip39 = require('bip39');
+import {generateBip39Mnemonic} from "../src/server/utils/cryptoUtil";
+import chalk from 'chalk';
+
 var figlet = require('figlet');
-var chalk = require('chalk');
 var inquirer = require('inquirer');
 
 module.exports = function generateMnemonicCommand(program) {
     'use strict';
 
-    function generateBip39Mnemonic() {
-        return bip39.generateMnemonic();
-    }
-
     program
         .command('start')
         .description('Generates Mnemonic')
-        .action(function (command) {
+        .action(function () {
 
                 console.log(
                     chalk.blue(
@@ -25,9 +22,9 @@ module.exports = function generateMnemonicCommand(program) {
 
                 var questions = [
                         {
-                            type: 'input',
-                            name: 'mnemonic',
-                            message: 'Do you want to generate a mnemonic? y/n',
+                            type    : 'input',
+                            name    : 'mnemonic',
+                            message : 'Do you want to generate a mnemonic? y/n',
                             validate: function (value) {
                                 if (value == 'y') {
                                     console.log(
@@ -47,7 +44,6 @@ module.exports = function generateMnemonicCommand(program) {
                 inquirer.prompt(questions).then(function (answers) {
                     console.log(JSON.stringify(answers, null, '  '));
                 });
-
             }
         )
     ;

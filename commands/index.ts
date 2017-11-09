@@ -9,7 +9,7 @@ module.exports = function commandLoader(program) {
 
 	// Loop though command files
 	fs.readdirSync(loadPath).filter(function (filename) {
-		return (/\.js$/.test(filename) && filename !== 'index.js');
+		return (/\.ts$/.test(filename) && filename !== 'index.ts');
 	}).forEach(function (filename) {
 		var name = filename.substr(0, filename.lastIndexOf('.'));
 

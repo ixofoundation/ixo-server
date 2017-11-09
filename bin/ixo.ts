@@ -9,6 +9,7 @@ program
     .version(packageJson.version)
     .usage('<command> [options]')
     .option('-d, --debug', 'show debug info')
+    .option('-m, --mnemonic', 'mnemonic');
 
 program.prompt = require('prompt');
 

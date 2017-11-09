@@ -1,16 +1,16 @@
-import {generateBip39Mnemonic} from "../src/server/utils/cryptoUtil";
+import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import chalk from 'chalk';
 
 var figlet = require('figlet');
 
-module.exports = function generateMnemonicCommand(program) {
+module.exports = function generateSdidCommand(program) {
     'use strict';
 
     program
-        .command('generateMnemonic')
-        .description('Generates Mnemonic')
+        .command('createDID')
+        .description('Generates SDID')
         .action(function () {
-            
+
                 console.log(
                     chalk.blue(
                         figlet.textSync('ixo Protocol', {horizontalLayout: 'standard'})
@@ -19,7 +19,7 @@ module.exports = function generateMnemonicCommand(program) {
 
                 console.log(
                     chalk.red(
-                        'Mnemonic: ' + generateBip39Mnemonic()
+                        'SDID: ' + JSON.stringify(generateSdidFromMnemonic(program.mnemonic.toString()), null, '\t')
                     )
                 );
 

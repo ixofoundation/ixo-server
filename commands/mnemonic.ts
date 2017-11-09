@@ -8,7 +8,7 @@ module.exports = function generateMnemonicCommand(program) {
     'use strict';
 
     program
-        .command('start')
+        .command('mnemonic')
         .description('Generates Mnemonic')
         .action(function () {
 

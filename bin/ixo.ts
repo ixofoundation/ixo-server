@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+require('dotenv').config();
 import * as program from "commander";
 
 var packageJson = require('../package.json');

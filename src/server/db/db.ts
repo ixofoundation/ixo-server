@@ -30,7 +30,6 @@ export async function postTransaction(txSigned: any) {
         .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id))
         .then(retrievedTx => {
             console.log('Transaction', retrievedTx.id, 'successfully posted.');
-            return retrievedTx.id;
         });
 }
 

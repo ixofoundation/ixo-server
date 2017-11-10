@@ -1,6 +1,7 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import chalk from 'chalk';
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
+import {logCliResult} from "../bin/utils";
 
 var figlet = require('figlet');
 
@@ -11,7 +12,6 @@ module.exports = function createDIDCommand(program) {
         .command('createDID')
         .description('Generates DID')
         .action(function () {
-
                 var sdid;
                 console.log(
                     chalk.blue(
@@ -20,24 +20,15 @@ module.exports = function createDIDCommand(program) {
                 );
                 if (typeof program.mnemonic !== 'undefined') {
                     sdid = generateSdidFromMnemonic(program.mnemonic.toString());
-                    console.log(
-                        chalk.red(
-                            'SDID: ' + JSON.stringify(sdid, null, '\t'))
-                    );
+                    logCliResult('SDID: ', sdid);
                 } else {
-                    console.log('Generating mnemonic...');
-                    const mnemonic = generateBip39Mnemonic();
-                    console.log(
-                        chalk.yellow(
-                            'Mnemonic: ' + JSON.stringify(mnemonic, null, '\t'))
-                    );
-                    sdid = generateSdidFromMnemonic(mnemonic);
+                    logCliResult('Generating mnemonic...');
 
-                    console.log(
-                        chalk.red(
-                            'SDID: ' + JSON.stringify(sdid, null, '\t')
-                        )
-                    );
+                    const mnemonic = generateBip39Mnemonic();
+                    logCliResult('Mnemonic: ', mnemonic);
+
+                    sdid = generateSdidFromMnemonic(mnemonic);
+                    logCliResult('SDID: ', sdid);
                 }
 
                 postTransaction(createDatabaseTransaction(sdid, {ns: 'ipld.ixo.dix'}, {what: 'Create the DIX'}));

@@ -1,9 +1,10 @@
 const driver = require('bigchaindb-driver')
-import {isProduction, isTest} from "../utils/environment";
+import { isProduction, isTest } from "../utils/environment";
+import { logCliResult } from "../../../bin/utils";
 const API_PATH = getConnectionURL();
 
 const dbConn = new driver.Connection(API_PATH, {
-    app_id : process.env.IPDB_APP_ID,
+    app_id: process.env.IPDB_APP_ID,
     app_key: process.env.IPDB_APP_KEY
 });
 
@@ -29,7 +30,7 @@ export async function postTransaction(txSigned: any) {
     await dbConn.postTransaction(txSigned)
         .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id))
         .then(retrievedTx => {
-            console.log('Transaction', retrievedTx.id, 'successfully posted.');
+            logCliResult('Transaction Successfull: ', retrievedTx);
         });
 }
 

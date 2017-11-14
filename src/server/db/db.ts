@@ -1,10 +1,11 @@
-import { isProduction, isTest } from "../utils/environment";
-import { logCliResult } from "../../../bin/utils";
+import {isProduction, isTest} from "../utils/environment";
+import {logCliResult} from "../../../bin/utils";
+
 const API_PATH = getConnectionURL();
 const driver = require('bigchaindb-driver');
 
 const dbConn = new driver.Connection(API_PATH, {
-    app_id: process.env.IPDB_APP_ID,
+    app_id : process.env.IPDB_APP_ID,
     app_key: process.env.IPDB_APP_KEY
 });
 
@@ -25,11 +26,23 @@ export function createDatabaseTransaction(sdid, asset, metadata) {
     return txSigned;
 }
 
+export function queryDB(query: string): any {
+    dbConn.searchAssets(query)
+        .then(result => {
+            if (result.length !== null) {
+                logCliResult('Query results: ', result[0]);
+                return result[0];
+            } else {
+                return null
+            }
+        });
+}
+
 export async function postTransaction(txSigned: any) {
     await dbConn.postTransaction(txSigned)
         .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id))
         .then(retrievedTx => {
-            logCliResult('Transaction Successfull: ', retrievedTx);
+            logCliResult('Transaction Successful: ', retrievedTx);
         });
 }
 

@@ -19,3 +19,12 @@ export function writeToFile(sdid) {
         logCliResult('File created!')
     });
 }
+
+export function readFromFile(filename: string) {
+    .readFile(filename, 'utf8', function (err, data) {
+        if (err) {
+            return console.error(err);
+        }
+        return JSON.parse(data);
+    });
+}

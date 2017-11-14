@@ -1,7 +1,5 @@
 import chalk from "chalk";
-
 var fileSystem = require('fs');
-
 
 export function logCliResult(key: any, value?: any) {
     if (typeof value === 'undefined') {

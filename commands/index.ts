@@ -1,5 +1,3 @@
-import chalk from "chalk";
-var figlet = require('figlet');
 var fs = require('fs');
 var path = require('path');
 

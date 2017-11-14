@@ -1,5 +1,6 @@
 import {logCliResult, readFromFile} from "../bin/utils";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
+import {CommandHelper} from "../bin/commandHelper";
 
 
 module.exports = function createUserCommand(program) {
@@ -10,21 +11,23 @@ module.exports = function createUserCommand(program) {
         .description('creates new user')
         .action(function () {
                 var isAllParamsPresent = true;
+                var ch = new CommandHelper(program.verbose);
+                ch.logHeader();
 
                 if (typeof program.did === 'undefined') {
-                    logCliResult('did is a mandatory parameter');
+                    ch.logCliResult('did is a mandatory parameter');
                     isAllParamsPresent = false;
                 }
                 if (typeof program.name === 'undefined') {
-                    logCliResult('name is a mandatory parameter');
+                    ch.logCliResult('name is a mandatory parameter');
                     isAllParamsPresent = false;
                 }
                 if (typeof program.country === 'undefined') {
-                    logCliResult('country is a mandatory parameter');
+                    ch.logCliResult('country is a mandatory parameter');
                     isAllParamsPresent = false;
                 }
                 if (typeof program.publicKey === 'undefined') {
-                    logCliResult('publicKey is a mandatory parameter');
+                    ch.logCliResult('publicKey is a mandatory parameter');
                     isAllParamsPresent = false;
                 }
 

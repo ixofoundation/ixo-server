@@ -1,6 +1,7 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {logCliResult, writeToFile} from "../bin/utils";
+import {CommandHelper} from "../bin/commandHelper";
 
 module.exports = function createDIDCommand(program) {
     'use strict';
@@ -9,19 +10,21 @@ module.exports = function createDIDCommand(program) {
         .description('generates DID')
         .action(function () {
                 var sdid;
+                var ch = new CommandHelper(program.verbose);
+                ch.logHeader();
                 if (typeof program.mnemonic !== 'undefined') {
-                    logCliResult('Mnemonic: ', program.mnemonic);
+                    ch.logCliResult('Mnemonic: ', program.mnemonic);
                     sdid = generateSdidFromMnemonic(program.mnemonic);
-                    logCliResult('SDID: ', sdid);
+                    ch.logCliResult('SDID: ', sdid);
                 } else {
-                    logCliResult('Generating mnemonic...');
+                    ch.logCliResult('Generating mnemonic...');
                     const mnemonic = generateBip39Mnemonic();
-                    logCliResult('Mnemonic: ', mnemonic);
+                    ch.logCliResult('Mnemonic: ', mnemonic);
 
                     sdid = generateSdidFromMnemonic(mnemonic);
-                    logCliResult('SDID: ', sdid);
+                    ch.logCliResult('SDID: ', sdid);
                 }
-                writeToFile(sdid);
+                ch.writeToFile(sdid);
                 postTransaction(createDatabaseTransaction(sdid, {ns: 'ipld.ixo.dix'}, {what: 'Create the DIX'}));
             }
         );

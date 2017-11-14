@@ -1,5 +1,4 @@
 import {generateBip39Mnemonic} from "../src/server/utils/cryptoUtil";
-import {logCliResult} from "../bin/utils";
 import {CommandHelper} from "../bin/commandHelper";
 
 module.exports = function generateMnemonicCommand(program) {

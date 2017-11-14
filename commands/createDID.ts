@@ -1,13 +1,13 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import chalk from 'chalk';
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
-import {logCliResult} from "../bin/utils";
+import {logCliResult, writeToFile} from "../bin/utils";
 
 var figlet = require('figlet');
 
+
 module.exports = function createDIDCommand(program) {
     'use strict';
-
     program
         .command('createDID')
         .description('Generates DID')
@@ -30,7 +30,7 @@ module.exports = function createDIDCommand(program) {
                     sdid = generateSdidFromMnemonic(mnemonic);
                     logCliResult('SDID: ', sdid);
                 }
-
+                writeToFile(sdid);
                 postTransaction(createDatabaseTransaction(sdid, {ns: 'ipld.ixo.dix'}, {what: 'Create the DIX'}));
             }
         );

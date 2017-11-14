@@ -1,8 +1,16 @@
+import chalk from "chalk";
+var figlet = require('figlet');
 var fs = require('fs');
 var path = require('path');
 
 module.exports = function commandLoader(program) {
 	'use strict';
+
+    console.log(
+        chalk.blue(
+            figlet.textSync('ixo Protocol', {horizontalLayout: 'standard'})
+        )
+    );
 
 	var commands = {};
 	var loadPath = path.dirname(__filename);

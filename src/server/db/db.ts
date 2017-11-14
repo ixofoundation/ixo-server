@@ -1,13 +1,12 @@
-const driver = require('bigchaindb-driver')
 import { isProduction, isTest } from "../utils/environment";
 import { logCliResult } from "../../../bin/utils";
 const API_PATH = getConnectionURL();
+const driver = require('bigchaindb-driver');
 
 const dbConn = new driver.Connection(API_PATH, {
     app_id: process.env.IPDB_APP_ID,
     app_key: process.env.IPDB_APP_KEY
 });
-
 
 export function createDatabaseTransaction(sdid, asset, metadata) {
     // Construct a transaction payload

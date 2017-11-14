@@ -93,6 +93,9 @@ build/Release
 node_modules
 jspm_packages
 
+# Tmp Directories
+public/tmp
+
 # Optional npm cache directory
 .npm
 

@@ -1,4 +1,4 @@
-import {logCliResult, readFromFile} from "../bin/utils";
+import {readFromFile} from "../bin/utils";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 

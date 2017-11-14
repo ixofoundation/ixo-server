@@ -9,6 +9,7 @@ program.LOG_PATH = process.env.HOME + '/.cli-log';
 program
     .version(packageJson.version)
     .usage('<command> [options]')
+    .option('-v, --verbose', 'verbose')
     .option('-m, --mnemonic <item>', 'mnemonic')
     .option('-d, --did <item>', 'digital identifier')
     .option('-n, --name <item>', 'name of the DID owner')

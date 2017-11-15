@@ -11,7 +11,7 @@ export class CommandHelper {
     verbose: boolean;
 
     constructor(verboseValue: boolean) {
-        this.verbose = (verboseValue)
+        this.verbose = (verboseValue);
     }
 
     setVerbose(value) {
@@ -62,7 +62,7 @@ export class CommandHelper {
                 return console.error(err);
             }
             this.logCliResult('File created!')
-        });
+        }.bind(this));
     }
 
     readFromFile(filename: string) {

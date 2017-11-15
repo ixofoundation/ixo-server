@@ -38,6 +38,10 @@ export function queryDB(query: string): any {
         });
 }
 
+export function doesDidExist(did: string): any {
+    return dbConn.searchAssets(did);
+}
+
 export async function postTransaction(txSigned: any) {
     await dbConn.postTransaction(txSigned)
         .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id))

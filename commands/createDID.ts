@@ -1,5 +1,4 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
-import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 
 module.exports = function createDIDCommand(program) {
@@ -24,7 +23,6 @@ module.exports = function createDIDCommand(program) {
                     ch.logCliResult('SDID: ', sdid);
                 }
                 ch.writeToFile(sdid);
-                postTransaction(createDatabaseTransaction(sdid, {ns: 'ipld.ixo.dix'}, {what: 'Create the DIX'}));
             }
         );
 };

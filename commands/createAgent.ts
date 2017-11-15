@@ -1,5 +1,4 @@
-import {readFromFile} from "../bin/utils";
-import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
+import {createDatabaseTransaction, doesDidExist, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 
 
@@ -31,13 +30,21 @@ module.exports = function createAgentCommand(program) {
                     isAllParamsPresent = false;
                 }
 
+
                 if (isAllParamsPresent) {
-                    postTransaction(createDatabaseTransaction(ch.readFromFile(program.did + '.json'), {
-                        did      : program.did,
-                        name     : program.name,
-                        country  : program.country,
-                        publicKey: program.publicKey
-                    }, {description: 'New agent ' + program.name + ' added.'}));
+                    doesDidExist(program.did).then(result => {
+                        if (result.length >= 1) {
+                            ch.logCliResult('did already exists');
+                        } else {
+                            postTransaction(createDatabaseTransaction(ch.readFromFile(program.did + '.json'), {
+                                did      : program.did,
+                                name     : program.name,
+                                country  : program.country,
+                                publicKey: program.publicKey
+                            }, {description: 'New agent ' + program.name + ' added.'}));
+                        }
+                    });
+
                 }
             }
         );

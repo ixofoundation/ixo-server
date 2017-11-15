@@ -30,8 +30,8 @@ export function queryDB(query: string): any {
     dbConn.searchAssets(query)
         .then(result => {
             if (result.length !== null) {
-                logCliResult('Query results: ', result[0]);
-                return result[0];
+                logCliResult('Query results: ', result);
+                return result;
             } else {
                 return null
             }

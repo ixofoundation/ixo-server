@@ -3,12 +3,12 @@ import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 
 
-module.exports = function createUserCommand(program) {
+module.exports = function createAgentCommand(program) {
     'use strict';
 
     program
-        .command('createUser')
-        .description('creates new user')
+        .command('createAgent')
+        .description('creates new agent')
         .action(function () {
                 var isAllParamsPresent = true;
                 var ch = new CommandHelper(program.verbose);
@@ -32,12 +32,12 @@ module.exports = function createUserCommand(program) {
                 }
 
                 if (isAllParamsPresent) {
-                    postTransaction(createDatabaseTransaction(readFromFile(program.did + '.json'), {
+                    postTransaction(createDatabaseTransaction(ch.readFromFile(program.did + '.json'), {
                         did      : program.did,
                         name     : program.name,
                         country  : program.country,
                         publicKey: program.publicKey
-                    }, {description: 'New user ' + program.name + ' added.'}));
+                    }, {description: 'New agent ' + program.name + ' added.'}));
                 }
             }
         );

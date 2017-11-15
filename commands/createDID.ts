@@ -1,6 +1,5 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
-import {logCliResult, writeToFile} from "../bin/utils";
 import {CommandHelper} from "../bin/commandHelper";
 
 module.exports = function createDIDCommand(program) {

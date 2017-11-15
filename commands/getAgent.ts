@@ -1,14 +1,13 @@
-import {logCliResult} from "../bin/utils";
 import {queryDB} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 
 
-module.exports = function getUserCommand(program) {
+module.exports = function getAgentCommand(program) {
     'use strict';
 
     program
-        .command('getUser')
-        .description('fetches user from database')
+        .command('getAgent')
+        .description('fetches agent from database')
         .action(function () {
                 var ch = new CommandHelper(program.verbose);
                 ch.logHeader();

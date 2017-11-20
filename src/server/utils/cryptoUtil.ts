@@ -1,6 +1,15 @@
 import * as crypto from 'crypto';
 import * as sovrinDID from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
+import {readFromFile, writeToFile} from "./fileUtils";
+
+var dateFormat = require('dateformat');
+
+var merge = require('merge');
+
+var base58 = require('bs58');
+
+var cc = require('five-bells-condition');
 
 export function generateBip39Mnemonic(): Promise<any> {
     var bip39 = require('bip39');
@@ -13,12 +22,43 @@ export function generateSdidFromMnemonic(mnemonic): Promise<ISovrinDidModel> {
 
     // Convert SHA256 hash to Uint8Array
     var didSeed = new Uint8Array(32);
-    for(var i=0; i < 32; ++i){
-        didSeed[i] = parseInt(seed.substring(i*2, i*2+2), 16)
+    for (var i = 0; i < 32; ++i) {
+        didSeed[i] = parseInt(seed.substring(i * 2, i * 2 + 2), 16)
     }
 
     // Create the Sovrin DID
     return sovrinDID.fromSeed(didSeed);
 }
+
+//TODO: Hook this up to the document signing process
+export function verifyDocumentSignature(fulfillment, condition, message): boolean {
+    console.log(fulfillment);
+    console.log(condition);
+    return cc.validateFulfillment(fulfillment, condition, message);
+}
+
+//Signs a document using signKey from generated SDID and returns the signature
+export function signDocument(sdid: ISovrinDidModel, file): string {
+    const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));
+    const ed25519Fulfillment = new cc.Ed25519Sha256();
+    const message = new Buffer(JSON.stringify(readFromFile('5qgZkrWP9XdYZP86K1ffEb.json')));
+
+    ed25519Fulfillment.sign(message, edPrivateKey);
+    
+    generateSignedDocument('test', ed25519Fulfillment.serializeUri(), readFromFile('5qgZkrWP9XdYZP86K1ffEb.json'), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
+    return ed25519Fulfillment.serializeUri();
+}
+
+export function generateSignedDocument(fileName, signature, content, type, did) {
+    var signatureText = JSON.parse('{"signature" : ' +
+        '{"type" : "' + type + '",' +
+        '"created" : "' + dateFormat(new Date(), "isoDateTime") + '",' +
+        '"creator" : "' + did + '",' +
+        '"signatureValue" : "' + signature + '"}}');
+    var finalDoc = merge(content, signatureText);
+    writeToFile(fileName, finalDoc);
+}
+
+
 
 

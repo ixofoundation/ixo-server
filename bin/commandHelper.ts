@@ -1,13 +1,9 @@
-'use strict'
 import chalk from 'chalk';
-
 var figlet = require('figlet');
 var fileSystem = require('fs');
 
-//var figlet = require('figlet');
-
 export class CommandHelper {
-
+    'use strict';
     verbose: boolean;
 
     constructor(verboseValue: boolean) {

@@ -44,7 +44,7 @@ export function signDocument(sdid: ISovrinDidModel, file): string {
     const message = new Buffer(JSON.stringify(readFromFile('5qgZkrWP9XdYZP86K1ffEb.json')));
 
     ed25519Fulfillment.sign(message, edPrivateKey);
-    
+
     generateSignedDocument('test', ed25519Fulfillment.serializeUri(), readFromFile('5qgZkrWP9XdYZP86K1ffEb.json'), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
     return ed25519Fulfillment.serializeUri();
 }

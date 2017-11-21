@@ -2,13 +2,11 @@ import * as crypto from 'crypto';
 import * as sovrinDID from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
 import {readFromFile, writeToFile} from "./fileUtils";
+import {createSignatureJson, isValidSignatureJson} from "../templates/signature";
 
 var dateFormat = require('dateformat');
-
 var merge = require('merge');
-
 var base58 = require('bs58');
-
 var cc = require('five-bells-condition');
 
 export function generateBip39Mnemonic(): Promise<any> {
@@ -38,25 +36,22 @@ export function verifyDocumentSignature(fulfillment, condition, message): boolea
 }
 
 //Signs a document using signKey from generated SDID and returns the signature
-export function signDocument(sdid: ISovrinDidModel, file): string {
+export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile): string {
     const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));
     const ed25519Fulfillment = new cc.Ed25519Sha256();
-    const message = new Buffer(JSON.stringify(readFromFile('5qgZkrWP9XdYZP86K1ffEb.json')));
-
+    const message = new Buffer(JSON.stringify(readFromFile(inputFile)));
     ed25519Fulfillment.sign(message, edPrivateKey);
-
-    generateSignedDocument('test', ed25519Fulfillment.serializeUri(), readFromFile('5qgZkrWP9XdYZP86K1ffEb.json'), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
+    generateSignedDocument(outputFile, ed25519Fulfillment.serializeUri(), readFromFile(inputFile), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
     return ed25519Fulfillment.serializeUri();
 }
 
+//Generates signature json and validates it against the schema template
 export function generateSignedDocument(fileName, signature, content, type, did) {
-    var signatureText = JSON.parse('{"signature" : ' +
-        '{"type" : "' + type + '",' +
-        '"created" : "' + dateFormat(new Date(), "isoDateTime") + '",' +
-        '"creator" : "' + did + '",' +
-        '"signatureValue" : "' + signature + '"}}');
-    var finalDoc = merge(content, signatureText);
-    writeToFile(fileName, finalDoc);
+    var signatureJson = createSignatureJson(type, dateFormat(new Date(), "isoDateTime"), did, signature);
+
+    if (isValidSignatureJson(signatureJson)) {
+        writeToFile(fileName, merge(content, signatureJson));
+    }
 }
 
 

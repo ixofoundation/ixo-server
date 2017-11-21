@@ -14,7 +14,10 @@ program
     .option('-d, --did <item>', 'digital identifier')
     .option('-n, --name <item>', 'name of the DID owner')
     .option('-p, --publicKey <item>', 'public key for did')
-    .option('-c, --country <item>', 'two letter country code');
+    .option('-c, --country <item>', 'two letter country code')
+    .option('-a, --agent <item>', 'location of the agentDoc')
+    .option('-i, --input <item>', 'location of the input file')
+    .option('-o, --output <item>', 'location of the output file');
 
 program.parse(process.argv);
 

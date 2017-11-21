@@ -12,10 +12,14 @@ module.exports = function signDocCommand(program) {
                 var ch = new CommandHelper(program.verbose);
                 ch.logHeader();
 
-                if (typeof program.did !== 'undefined') {
-                    signDocument(ch.readFromFile(program.did + '.json'), 'HELLO SIGN TEST');
+                if (typeof program.agent == 'undefined') {
+                    ch.logCliResult('agent is a mandatory parameter');
+                } else if (typeof program.input == 'undefined') {
+                    ch.logCliResult('input is a mandatory parameter');
+                } else if (typeof program.output == 'undefined') {
+                    ch.logCliResult('output is a mandatory parameter');
                 } else {
-                    ch.logCliResult('did is a mandatory parameter');
+                    ch.logCliResult('Document signed using signature: ' + signDocument(ch.readFromFile(program.agent), program.input, program.output));
                 }
             }
         );

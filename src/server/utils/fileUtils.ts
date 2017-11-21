@@ -5,7 +5,7 @@ export function readFromFile(filename: string) {
 }
 
 export function writeToFile(fileName, content) {
-    fileSystem.writeFile(process.env.PWD + process.env.OUTPUT_DIR + fileName + '.json', JSON.stringify(content, null, '\t'), function (err) {
+    fileSystem.writeFile(process.env.PWD + process.env.OUTPUT_DIR + fileName, JSON.stringify(content, null, '\t'), function (err) {
         if (err) {
             return console.error(err);
         }

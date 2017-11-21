@@ -28,21 +28,23 @@ export function generateSdidFromMnemonic(mnemonic): Promise<ISovrinDidModel> {
     return sovrinDID.fromSeed(didSeed);
 }
 
-//TODO: Hook this up to the document signing process
 export function verifyDocumentSignature(fulfillment, condition, message): boolean {
-    console.log(fulfillment);
-    console.log(condition);
     return cc.validateFulfillment(fulfillment, condition, message);
 }
 
 //Signs a document using signKey from generated SDID and returns the signature
-export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile): string {
+export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
     const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));
     const ed25519Fulfillment = new cc.Ed25519Sha256();
     const message = new Buffer(JSON.stringify(readFromFile(inputFile)));
     ed25519Fulfillment.sign(message, edPrivateKey);
-    generateSignedDocument(outputFile, ed25519Fulfillment.serializeUri(), readFromFile(inputFile), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
-    return ed25519Fulfillment.serializeUri();
+
+    if (verifyDocumentSignature(ed25519Fulfillment.serializeUri(), ed25519Fulfillment.getConditionUri(), message)) {
+        generateSignedDocument(outputFile, ed25519Fulfillment.serializeUri(), readFromFile(inputFile), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
+        return ed25519Fulfillment.serializeUri();
+    } else {
+        throw new Error('fulfillment validation failed');
+    }
 }
 
 //Generates signature json and validates it against the schema template
@@ -51,6 +53,8 @@ export function generateSignedDocument(fileName, signature, content, type, did) 
 
     if (isValidSignatureJson(signatureJson)) {
         writeToFile(fileName, merge(content, signatureJson));
+    } else {
+        throw new Error('signature json validation failed');
     }
 }
 

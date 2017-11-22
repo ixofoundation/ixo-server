@@ -9,6 +9,6 @@ export function writeToFile(fileName, content) {
         if (err) {
             return console.error(err);
         }
-        console.log('File created!');
+        console.log('File ' + fileName + ' created!');
     });
 }

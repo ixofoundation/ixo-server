@@ -1,6 +1,6 @@
-import {Validator} from 'jsonschema';
 
-var signatureSchema = {
+
+export var signatureSchema = {
     "$schema"    : "http://json-schema.org/draft-04/schema#",
     "description": "",
     "type"       : "object",
@@ -48,11 +48,6 @@ export function createSignatureJson(signatureType, created, creator, signatureVa
         }
     };
     return signature;
-}
-
-export function isValidSignatureJson(json): boolean {
-    var validator = new Validator();
-    return validator.validate(json, signatureSchema).valid;
 }
 
 

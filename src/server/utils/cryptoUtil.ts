@@ -2,7 +2,8 @@ import * as crypto from 'crypto';
 import * as sovrinDID from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
 import {readFromFile, writeToFile} from "./fileUtils";
-import {createSignatureJson, isValidSignatureJson} from "../templates/signature";
+import {createSignatureJson, signatureSchema} from "../templates/signature";
+import {isValidJson} from "./jsonUtils";
 
 var dateFormat = require('dateformat');
 var merge = require('merge');
@@ -51,7 +52,7 @@ export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
 export function generateSignedDocument(fileName, signature, content, type, did) {
     var signatureJson = createSignatureJson(type, dateFormat(new Date(), "isoDateTime"), did, signature);
 
-    if (isValidSignatureJson(signatureJson)) {
+    if (isValidJson(signatureSchema, signatureJson)) {
         writeToFile(fileName, merge(content, signatureJson));
     } else {
         throw new Error('signature json validation failed');

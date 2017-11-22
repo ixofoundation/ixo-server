@@ -42,7 +42,9 @@ module.exports = function createAgentCommand(program) {
                                 name     : program.name,
                                 country  : program.country,
                                 publicKey: program.publicKey
-                            }, {description: 'New agent ' + program.name + ' added.'}));
+                            }, {description: 'New agent ' + program.name + ' added.'})).then(result => {
+                                ch.logCliResult('Agent Added: ', result);
+                            });
                         }
                     });
 

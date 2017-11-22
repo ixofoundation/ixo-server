@@ -1,5 +1,4 @@
 import {isProduction, isTest} from "../utils/environment";
-import {logCliResult} from "../../../bin/utils";
 
 const API_PATH = getConnectionURL();
 const driver = require('bigchaindb-driver');
@@ -9,7 +8,7 @@ const dbConn = new driver.Connection(API_PATH, {
     app_key: process.env.IPDB_APP_KEY
 });
 
-export function createDatabaseTransaction(sdid, asset, metadata) {
+export function createDatabaseTransaction(sdid, asset, metadata?) {
     // Construct a transaction payload
     const tx = driver.Transaction.makeCreateTransaction(
         asset,
@@ -30,7 +29,7 @@ export function queryDB(query: string): any {
     dbConn.searchAssets(query)
         .then(result => {
             if (result.length !== null) {
-                logCliResult('Query results: ', result);
+                console.log('Query results: ', JSON.stringify(result, null, '\t'));
                 return result;
             } else {
                 return null
@@ -43,11 +42,12 @@ export function doesDidExist(did: string): any {
 }
 
 export async function postTransaction(txSigned: any) {
-    await dbConn.postTransaction(txSigned)
-        .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id))
-        .then(retrievedTx => {
-            logCliResult('Transaction Successful: ', retrievedTx);
-        });
+    try {
+        return await dbConn.postTransaction(txSigned)
+            .then(() => dbConn.pollStatusAndFetchTransaction(txSigned.id));
+    } catch (err) {
+        throw new Error(err);
+    }
 }
 
 // Return connection URL for the current environment

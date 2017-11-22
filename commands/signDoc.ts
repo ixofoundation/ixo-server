@@ -1,6 +1,6 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {signDocument} from "../src/server/utils/cryptoUtil";
-
+import {readDIDFromFile} from "../src/server/utils/fileUtils";
 
 module.exports = function signDocCommand(program) {
     'use strict';
@@ -19,7 +19,7 @@ module.exports = function signDocCommand(program) {
                 } else if (typeof program.output == 'undefined') {
                     ch.logCliResult('output is a mandatory parameter');
                 } else {
-                    ch.logCliResult('Document signed using signature: ' + signDocument(ch.readFromFile(program.agent), program.input, program.output));
+                    ch.logCliResult('Document signed using signature: ' + signDocument(readDIDFromFile(program.agent), program.input, program.output));
                 }
             }
         );

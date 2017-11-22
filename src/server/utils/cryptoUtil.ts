@@ -37,6 +37,7 @@ export function verifyDocumentSignature(fulfillment, condition, message): boolea
 export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
     const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));
     const ed25519Fulfillment = new cc.Ed25519Sha256();
+
     const message = new Buffer(JSON.stringify(readFromFile(inputFile)));
     ed25519Fulfillment.sign(message, edPrivateKey);
 
@@ -51,6 +52,9 @@ export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
 //Generates signature json and validates it against the schema template
 export function generateSignedDocument(fileName, signature, content, type, did) {
     var signatureJson = createSignatureJson(type, dateFormat(new Date(), "isoDateTime"), did, signature);
+
+    console.log(JSON.stringify(content, null, '\t'));
+    console.log(JSON.stringify(signatureJson, null, '\t'));
 
     if (isValidJson(signatureSchema, signatureJson)) {
         writeToFile(fileName, merge(content, signatureJson));

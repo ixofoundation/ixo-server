@@ -1,5 +1,6 @@
 import {createDatabaseTransaction, doesDidExist, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
+import {readFromFile} from "../src/server/utils/fileUtils";
 
 
 module.exports = function createAgentCommand(program) {
@@ -36,7 +37,7 @@ module.exports = function createAgentCommand(program) {
                         if (result.length >= 1) {
                             ch.logCliResult('did already exists');
                         } else {
-                            postTransaction(createDatabaseTransaction(ch.readFromFile(program.did + '.json'), {
+                            postTransaction(createDatabaseTransaction(readFromFile(program.did + '.json'), {
                                 did      : program.did,
                                 name     : program.name,
                                 country  : program.country,

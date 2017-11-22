@@ -1,5 +1,6 @@
 import {generateBip39Mnemonic, generateSdidFromMnemonic} from "../src/server/utils/cryptoUtil";
 import {CommandHelper} from "../bin/commandHelper";
+import {writeDIDToFile} from "../src/server/utils/fileUtils";
 
 module.exports = function createDIDCommand(program) {
     'use strict';
@@ -22,7 +23,7 @@ module.exports = function createDIDCommand(program) {
                     sdid = generateSdidFromMnemonic(mnemonic);
                     ch.logCliResult('SDID: ', sdid);
                 }
-                ch.writeToFile(sdid);
+                writeDIDToFile(sdid.did + '.json', sdid);
             }
         );
 };

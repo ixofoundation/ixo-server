@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+
 var figlet = require('figlet');
 var fileSystem = require('fs');
 
@@ -50,19 +51,6 @@ export class CommandHelper {
         } else {
             console.error(err);
         }
-    }
-
-    writeToFile(sdid) {
-        fileSystem.writeFile(process.env.PWD + '/public/tmp/' + sdid.did + '.json', JSON.stringify(sdid, null, '\t'), function (err) {
-            if (err) {
-                return console.error(err);
-            }
-            this.logCliResult('File created!')
-        }.bind(this));
-    }
-
-    readFromFile(filename: string) {
-        return JSON.parse(fileSystem.readFileSync(process.env.PWD + '/public/tmp/' + filename, 'utf8'));
     }
 
 }

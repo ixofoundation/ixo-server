@@ -17,7 +17,8 @@ program
     .option('-c, --country <item>', 'two letter country code')
     .option('-a, --agent <item>', 'location of the agentDoc')
     .option('-i, --input <item>', 'location of the input file')
-    .option('-o, --output <item>', 'location of the output file');
+    .option('-o, --output <item>', 'location of the output file')
+    .option('-t, --templateId <item>', 'template id');
 
 program.parse(process.argv);
 

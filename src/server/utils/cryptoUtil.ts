@@ -33,6 +33,14 @@ export function verifyDocumentSignature(fulfillment, condition, message): boolea
     return cc.validateFulfillment(fulfillment, condition, message);
 }
 
+export function validateDocumentSignature(signedDoc, publicKey): boolean {
+    const edPublicKey = new Buffer(base58.decode(publicKey));
+    const ed25519Fulfillment = new cc.Ed25519Sha256();
+    const message = new Buffer(JSON.stringify(signedDoc));
+    ed25519Fulfillment.sign(message, edPublicKey);
+    return verifyDocumentSignature(ed25519Fulfillment.serializeUri(), ed25519Fulfillment.getConditionUri(), message);
+}
+
 //Signs a document using signKey from generated SDID and returns the signature
 export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
     const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));

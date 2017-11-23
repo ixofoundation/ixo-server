@@ -25,16 +25,12 @@ export function createDatabaseTransaction(sdid, asset, metadata?) {
     return txSigned;
 }
 
-export function queryDB(query: string): any {
-    dbConn.searchAssets(query)
-        .then(result => {
-            if (result.length !== null) {
-                console.log('Query results: ', JSON.stringify(result, null, '\t'));
-                return result;
-            } else {
-                return null
-            }
-        });
+export async function queryDB(query: string) {
+    try {
+        return await dbConn.searchAssets(query);
+    } catch (err) {
+        throw new Error(err);
+    }
 }
 
 export function doesDidExist(did: string): any {

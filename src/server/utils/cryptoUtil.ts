@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import * as sovrinDID from 'sovrin-did';
+import * as sovrin from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
 import {readFromFile, writeToFile} from "./fileUtils";
 import {createSignatureJson, signatureSchema} from "../templates/signature";
@@ -17,7 +17,7 @@ export function generateBip39Mnemonic(): Promise<any> {
 
 export function generateSdidFromMnemonic(mnemonic): Promise<ISovrinDidModel> {
     // Create sha256 hash from Menmonic
-    const seed = crypto.createHash('sha256').update(mnemonic).digest("hex")
+    const seed = crypto.createHash('sha256').update(mnemonic).digest("hex");
 
     // Convert SHA256 hash to Uint8Array
     var didSeed = new Uint8Array(32);
@@ -26,32 +26,21 @@ export function generateSdidFromMnemonic(mnemonic): Promise<ISovrinDidModel> {
     }
 
     // Create the Sovrin DID
-    return sovrinDID.fromSeed(didSeed);
+    return sovrin.fromSeed(didSeed);
 }
 
-export function verifyDocumentSignature(fulfillment, condition, message): boolean {
-    return cc.validateFulfillment(fulfillment, condition, message);
-}
-
-export function validateDocumentSignature(signedDoc, publicKey): boolean {
-    const edPublicKey = new Buffer(base58.decode(publicKey));
-    const ed25519Fulfillment = new cc.Ed25519Sha256();
-    const message = new Buffer(JSON.stringify(signedDoc));
-    ed25519Fulfillment.sign(message, edPublicKey);
-    return verifyDocumentSignature(ed25519Fulfillment.serializeUri(), ed25519Fulfillment.getConditionUri(), message);
+export function verifyDocumentSignature(signature, publicKey): boolean {
+    return !(sovrin.verifySignedMessage(base58.decode(signature), publicKey) === false);
 }
 
 //Signs a document using signKey from generated SDID and returns the signature
 export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
-    const edPrivateKey = new Buffer(base58.decode(sdid.secret.signKey));
-    const ed25519Fulfillment = new cc.Ed25519Sha256();
+    const fileToSign = readFromFile(inputFile);
+    var signature = base58.encode(sovrin.signMessage(new Buffer(JSON.stringify(fileToSign)), sdid.secret.signKey, sdid.verifyKey));
 
-    const message = new Buffer(JSON.stringify(readFromFile(inputFile)));
-    ed25519Fulfillment.sign(message, edPrivateKey);
-
-    if (verifyDocumentSignature(ed25519Fulfillment.serializeUri(), ed25519Fulfillment.getConditionUri(), message)) {
-        generateSignedDocument(outputFile, ed25519Fulfillment.serializeUri(), readFromFile(inputFile), cc.Ed25519Sha256.TYPE_NAME, sdid.did);
-        return ed25519Fulfillment.serializeUri();
+    if (verifyDocumentSignature(signature, sdid.verifyKey)) {
+        generateSignedDocument(outputFile, signature, fileToSign, cc.Ed25519Sha256.TYPE_NAME, sdid.did);
+        return signature;
     } else {
         throw new Error('fulfillment validation failed');
     }

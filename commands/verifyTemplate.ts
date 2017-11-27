@@ -1,6 +1,6 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {readDIDFromFile, readFromFile,} from "../src/server/utils/fileUtils";
-import {validateDocumentSignature} from "../src/server/utils/cryptoUtil";
+import {verifyDocumentSignature} from "../src/server/utils/cryptoUtil";
 
 module.exports = function verifyTemplateCommand(program) {
     'use strict';
@@ -25,7 +25,7 @@ module.exports = function verifyTemplateCommand(program) {
                 var sdid = readDIDFromFile(program.did + '.json');
 
                 if (isAllParamsPresent) {
-                    ch.logCliResult('Verification passed: ', validateDocumentSignature(template, sdid.verifyKey));
+                    ch.logCliResult('Verification passed: ', verifyDocumentSignature(template.signature.signatureValue, sdid.verifyKey));
                 }
             }
         );

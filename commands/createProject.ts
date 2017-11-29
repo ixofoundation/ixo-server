@@ -71,7 +71,7 @@ module.exports = function createProjectCommand(program) {
                     }, {description: 'New agent ' + program.name + ' added.'})).then(result => {
                         ch.logCliResult('Project Added: ', result.asset.data);
                         if (!(typeof program.output === 'undefined')) {
-                            writeToFile(program.output, result.asset.data);
+                            writeToFile(program.output, result);
                         }
                     });
 

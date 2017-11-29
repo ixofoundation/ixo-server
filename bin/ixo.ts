@@ -24,9 +24,9 @@ program
     .option('-e, --end <item>', 'project end date')
     .option('--number <item>', 'project number of impacts')
     .option('--value <item>', 'value of project in USD')
+    .option('--dixProjectID <item>', 'dix project ID')
+    .option('-r, --role <item>', 'agent role')
     .option('--description <item>', 'project description');
-
-
 
 
 program.parse(process.argv);

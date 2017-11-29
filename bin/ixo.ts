@@ -26,6 +26,7 @@ program
     .option('--value <item>', 'value of project in USD')
     .option('--dixProjectID <item>', 'dix project ID')
     .option('-r, --role <item>', 'agent role')
+    .option('--tolerance <item>', 'tolerance for failed claims ')
     .option('--description <item>', 'project description');
 
 

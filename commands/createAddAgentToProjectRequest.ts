@@ -1,9 +1,9 @@
 import {createDatabaseTransaction, doesDidExist, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
-import {writeToFile} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, writeToFile} from "../src/server/utils/fileUtils";
 import {createRoleJson, roleSchema} from "../src/server/templates/role";
 import {isValidJson, resolveAgentRole} from "../src/server/utils/jsonUtils";
-
+var merge = require('merge');
 
 module.exports = function createAddAgentToProjectRequestCommand(program) {
     'use strict';
@@ -25,13 +25,16 @@ module.exports = function createAddAgentToProjectRequestCommand(program) {
                     doesDidExist(program.did).then(result => {
                         if (result.length >= 1) {
                             ch.logCliResult('Agent Role: ', resolveAgentRole(program.role));
-
                             var roleJson = createRoleJson(resolveAgentRole(program.role), program.dixProjectID, program.did);
 
                             if (isValidJson(roleSchema, roleJson)) {
-                                writeToFile(program.did + '_' + roleJson.role.type, roleJson);
+                                postTransaction(createDatabaseTransaction(readDIDFromFile(program.did + '.json'), roleJson,
+                                    {description: 'New agent ' + program.name + ' added.'})).then(result => {
+                                        ch.logCliResult('Role Result: ', result);
+                                        writeToFile(program.did + '_' + roleJson.role.type + '.json', merge({"id": result.id}, roleJson))
+                                    }
+                                );
                             }
-
                         } else {
                             ch.logCliResult('did does not exists');
                         }

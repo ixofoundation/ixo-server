@@ -1,13 +1,13 @@
 import {Validator} from 'jsonschema';
-import {AGENT_ROLE} from "../db/models";
+import {AGENT_ROLE, PROJECT_STATUS} from "../db/models";
 
 export function isValidJson(schema, json): boolean {
     var validator = new Validator();
     return validator.validate(json, schema).valid;
 }
 
-export function resolveAgentRole(agentCode): string {
-    switch (agentCode) {
+export function resolveAgentRole(roleCode): string {
+    switch (roleCode) {
         case 'E':
             return AGENT_ROLE.E.valueOf();
         case 'F':
@@ -16,5 +16,16 @@ export function resolveAgentRole(agentCode): string {
             return AGENT_ROLE.O.valueOf();
         case 'S':
             return AGENT_ROLE.S.valueOf();
+    }
+}
+
+export function resolveProjectStatus(statusCode): string {
+    switch (statusCode) {
+        case 'PENDING':
+            return PROJECT_STATUS.PENDING.valueOf();
+        case 'IN_PROGRESS':
+            return PROJECT_STATUS.IN_PROGRESS.valueOf();
+        case 'FINISHED':
+            return PROJECT_STATUS.FINISHED.valueOf();
     }
 }

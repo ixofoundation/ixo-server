@@ -1,4 +1,4 @@
-# tge-server
+# ixo-server
 
 ## Installation:
 ``` bash

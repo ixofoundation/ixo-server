@@ -1,7 +1,7 @@
 {
-  "name": "tge-server",
+  "name": "ixo-server",
   "version": "1.0.0",
-  "description": "tge-server",
+  "description": "ixo-server",
   "author": "Trustlab",
   "engines": {
     "node": "6.11.1",
@@ -28,13 +28,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ixofoundation/tge-server.git"
+    "url": "git+https://github.com/ixofoundation/ixo-server.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ixofoundation/tge-server/issues"
+    "url": "https://github.com/ixofoundation/ixo-server/issues"
   },
-  "homepage": "https://github.com/ixofoundation/tge-server#readme",
+  "homepage": "https://github.com/ixofoundation/ixo-server#readme",
   "dependencies": {
     "@types/react": "15.6.1",
     "@types/react-dom": "15.5.4",

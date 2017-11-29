@@ -1,7 +1,11 @@
 var fileSystem = require('fs');
 
-export function readFromFile(filename: string) {
+export function readFileFromInput(filename: string) {
     return JSON.parse(fileSystem.readFileSync(process.env.PWD + process.env.INPUT_DIR + filename, 'utf8'));
+}
+
+export function readFileFromOutput(filename: string) {
+    return JSON.parse(fileSystem.readFileSync(process.env.PWD + process.env.OUTPUT_DIR + filename, 'utf8'));
 }
 
 export function writeToFile(fileName, content) {

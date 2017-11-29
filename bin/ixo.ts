@@ -18,7 +18,16 @@ program
     .option('-a, --agent <item>', 'location of the agentDoc')
     .option('-i, --input <item>', 'location of the input file')
     .option('-o, --output <item>', 'location of the output file')
-    .option('-t, --templateId <item>', 'template id');
+    .option('-t, --templateId <item>', 'template id')
+    .option('-l, --link <item>', 'project link')
+    .option('-s, --start <item>', 'project start date')
+    .option('-e, --end <item>', 'project end date')
+    .option('--number <item>', 'project number of impacts')
+    .option('--value <item>', 'value of project in USD')
+    .option('--description <item>', 'project description');
+
+
+
 
 program.parse(process.argv);
 

@@ -1,6 +1,10 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
-import {readDIDFromFile, readFromFile, writeToFile} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, readFileFromInput, writeToFile} from "../src/server/utils/fileUtils";
+import {createTemplateJson, templateSchema} from "../src/server/templates/template";
+import {isValidJson} from "../src/server/utils/jsonUtils";
+
+var dateFormat = require('dateformat');
 
 var merge = require('merge');
 
@@ -30,13 +34,12 @@ module.exports = function registerTemplateCommand(program) {
                     postTransaction(createDatabaseTransaction(sdid, {
                         did       : program.did,
                         templateId: sdid.verifyKey,
-                        template  : readFromFile(program.input)
+                        template  : readFileFromInput(program.input)
                     })).then(result => {
-                        var resultJson = {
-                            "templateId": result.id
-                        };
-                        ch.logCliResult('TemplateId: ', result.id);
-                        writeToFile(result.id + '.json', merge(result.asset.data.template, resultJson));
+                        var templateJson = createTemplateJson(result.id, dateFormat(new Date(), "isoDateTime"), sdid.did, "P1261.23");
+                        if (isValidJson(templateSchema, templateJson)) {
+                            writeToFile(result.id + '.json', merge(templateJson, result.asset.data.template));
+                        }
                     });
 
                 }

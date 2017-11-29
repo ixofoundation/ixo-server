@@ -1,5 +1,5 @@
 import {CommandHelper} from "../bin/commandHelper";
-import {readDIDFromFile, readFromFile,} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, readFileFromInput,} from "../src/server/utils/fileUtils";
 import {verifyDocumentSignature} from "../src/server/utils/cryptoUtil";
 
 module.exports = function verifyTemplateCommand(program) {
@@ -21,7 +21,7 @@ module.exports = function verifyTemplateCommand(program) {
                     isAllParamsPresent = false;
                 }
 
-                var template = readFromFile(program.templateId + '.json');
+                var template = readFileFromInput(program.templateId + '.json');
                 var sdid = readDIDFromFile(program.did + '.json');
 
                 if (isAllParamsPresent) {

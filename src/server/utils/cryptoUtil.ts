@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as sovrin from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
-import {readFromFile, writeToFile} from "./fileUtils";
+import {readFileFromInput, writeToFile} from "./fileUtils";
 import {createSignatureJson, signatureSchema} from "../templates/signature";
 import {isValidJson} from "./jsonUtils";
 
@@ -35,7 +35,7 @@ export function verifyDocumentSignature(signature, publicKey): boolean {
 
 //Signs a document using signKey from generated SDID and returns the signature
 export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
-    const fileToSign = readFromFile(inputFile);
+    const fileToSign = readFileFromInput(inputFile);
     var signature = base58.encode(sovrin.signMessage(new Buffer(JSON.stringify(fileToSign)), sdid.secret.signKey, sdid.verifyKey));
 
     if (verifyDocumentSignature(signature, sdid.verifyKey)) {

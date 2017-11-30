@@ -35,11 +35,10 @@ export function verifyDocumentSignature(signature, publicKey): boolean {
 
 //Signs a document using signKey from generated SDID and returns the signature
 export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
-    const fileToSign = readFileFromInput(inputFile);
-    var signature = base58.encode(sovrin.signMessage(new Buffer(JSON.stringify(fileToSign)), sdid.secret.signKey, sdid.verifyKey));
+    var signature = base58.encode(sovrin.signMessage(new Buffer(JSON.stringify(inputFile)), sdid.secret.signKey, sdid.verifyKey));
 
     if (verifyDocumentSignature(signature, sdid.verifyKey)) {
-        generateSignedDocument(outputFile, signature, fileToSign, cc.Ed25519Sha256.TYPE_NAME, sdid.did);
+        generateSignedDocument(outputFile, signature, inputFile, cc.Ed25519Sha256.TYPE_NAME, sdid.did);
         return signature;
     } else {
         throw new Error('fulfillment validation failed');

@@ -3,18 +3,30 @@ export var roleSchema = {
     "description": "",
     "type"       : "object",
     "properties" : {
-        "type" : {
+        "id"    : {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "type"  : {
             "type" : "array",
             "items": {
                 "required"  : [],
                 "properties": {}
             }
         },
-        "dixID": {
+        "dixID" : {
             "type"     : "string",
             "minLength": 1
         },
-        "role" : {
+        "issuer": {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "issued": {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "role"  : {
             "type"      : "object",
             "properties": {
                 "type": {
@@ -39,10 +51,13 @@ export var roleSchema = {
     ]
 };
 
-export function createRoleJson(role, dixID, did) {
+export function createRoleJson(role, dixID, did, id?, issuer?, issued?) {
     var roleJson = {
+        "id" : id,
         "type" : ["Role"],
         "dixID": dixID,
+        "issuer": issuer,
+        "issued": issued,
         "role" : {
             "type": role,
             "did" : did

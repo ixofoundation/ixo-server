@@ -1,6 +1,6 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {signDocument} from "../src/server/utils/cryptoUtil";
-import {readDIDFromFile} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, readFileFromInput} from "../src/server/utils/fileUtils";
 
 module.exports = function submitProjectCommand(program) {
     'use strict';
@@ -17,7 +17,7 @@ module.exports = function submitProjectCommand(program) {
                 } else if (typeof program.input == 'undefined') {
                     ch.logCliResult('input is a mandatory parameter');
                 } else {
-                    signDocument(readDIDFromFile(program.did), program.input, program.input);
+                    signDocument(readDIDFromFile(program.did), readFileFromInput(program.input), program.input);
                 }
             }
         );

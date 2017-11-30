@@ -4,8 +4,6 @@ import {writeToFile} from "../src/server/utils/fileUtils";
 import {isValidJson} from "../src/server/utils/jsonUtils";
 import {createRevokedRoleJson, revokedRoleSchema} from "../src/server/templates/revokeRole";
 
-var merge = require('merge');
-
 module.exports = function createRevokeAgentFromProjectRequestCommand(program) {
     'use strict';
 

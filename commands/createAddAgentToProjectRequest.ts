@@ -1,10 +1,8 @@
-import {createDatabaseTransaction, doesDidExist, postTransaction} from "../src/server/db/db";
+import {doesDidExist} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
-import {readDIDFromFile, writeToFile} from "../src/server/utils/fileUtils";
+import {writeToFile} from "../src/server/utils/fileUtils";
 import {createRoleJson, roleSchema} from "../src/server/templates/role";
 import {isValidJson, resolveAgentRole} from "../src/server/utils/jsonUtils";
-
-var merge = require('merge');
 
 module.exports = function createAddAgentToProjectRequestCommand(program) {
     'use strict';

@@ -5,15 +5,14 @@ import {createRoleJson} from "../src/server/templates/role";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {runInNewContext} from "vm";
 
-var dateFormat = require('dateformat');
 var merge = require('merge');
 
-module.exports = function addAgentToProjectCommand(program) {
+module.exports = function revokeAgentFromProjectCommand(program) {
     'use strict';
 
     program
-        .command('addAgentToProject')
-        .description('adds agent to project')
+        .command('revokeAgentFromProject')
+        .description('revokes agent from a project')
         .action(function () {
                 var ch = new CommandHelper(program.verbose);
                 ch.logHeader();
@@ -24,20 +23,21 @@ module.exports = function addAgentToProjectCommand(program) {
                     ch.logCliResult('input is a mandatory parameter');
                 } else {
                     //Reads createAddAgentToProjectRequest file from output
-                    var roleInput = readFileFromOutput(program.input);
+                    var revokedRoleInput = readFileFromOutput(program.input);
 
                     //Generates a signature
-                    var signature = signDocument(readDIDFromFile(program.did), roleInput);
+                    var signature = signDocument(readDIDFromFile(program.did), revokedRoleInput);
 
                     //Adds the signature to the role
-                    var roleInputSigned = merge(roleInput, signature);
+                    var revokedRoleInputSigned = merge(revokedRoleInput, signature);
 
-                    ch.logCliResult('Signed role request: ', roleInputSigned);
+                    ch.logCliResult('Signed revoke request: ', revokedRoleInputSigned);
 
-                    postTransaction(createDatabaseTransaction(readDIDFromFile(program.did), roleInputSigned,
+                    postTransaction(createDatabaseTransaction(readDIDFromFile(program.did), revokedRoleInputSigned,
                         {description: 'New agent ' + program.name + ' added.'})).then(result => {
                             ch.logCliResult('Database Results: ', result.asset.data);
-                            writeToFile(result.asset.data.role.did + '_' + result.asset.data.role.type + '_signed.json', merge({"id": result.id}, result.asset.data));
+
+                            writeToFile(result.asset.data.dixID + '_' + result.asset.data.roleID + '_signed.json', merge({"id": result.id}, result.asset.data));
                         }
                     );
                 }

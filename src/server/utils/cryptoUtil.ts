@@ -34,30 +34,29 @@ export function verifyDocumentSignature(signature, publicKey): boolean {
 }
 
 //Signs a document using signKey from generated SDID and returns the signature
-export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile) {
+export function signDocument(sdid: ISovrinDidModel, inputFile, outputFile?) {
     var signature = base58.encode(sovrin.signMessage(new Buffer(JSON.stringify(inputFile)), sdid.secret.signKey, sdid.verifyKey));
 
     if (verifyDocumentSignature(signature, sdid.verifyKey)) {
-        generateSignedDocument(outputFile, signature, inputFile, cc.Ed25519Sha256.TYPE_NAME, sdid.did);
-        return signature;
+        if (typeof outputFile !== 'undefined') {
+            writeToFile(outputFile, merge(inputFile, generateDocumentSignature(sdid.did, signature)));
+        }
+        return generateDocumentSignature(sdid.did, signature);
     } else {
         throw new Error('fulfillment validation failed');
     }
 }
 
-//Generates signature json and validates it against the schema template
-export function generateSignedDocument(fileName, signature, content, type, did) {
-    var signatureJson = createSignatureJson(type, dateFormat(new Date(), "isoDateTime"), did, signature);
-
-    console.log(JSON.stringify(content, null, '\t'));
-    console.log(JSON.stringify(signatureJson, null, '\t'));
-
+//Generates signature json from generated doc signature
+export function generateDocumentSignature(did, signature) {
+    var signatureJson = createSignatureJson(cc.Ed25519Sha256.TYPE_NAME, dateFormat(new Date(), "isoDateTime"), did, signature);
     if (isValidJson(signatureSchema, signatureJson)) {
-        writeToFile(fileName, merge(content, signatureJson));
+        return signatureJson
     } else {
         throw new Error('signature json validation failed');
     }
 }
+
 
 
 

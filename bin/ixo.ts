@@ -27,6 +27,7 @@ program
     .option('--dixProjectID <item>', 'dix project ID')
     .option('-r, --role <item>', 'agent role')
     .option('--tolerance <item>', 'tolerance for failed claims ')
+    .option('--roleID <item>', 'id of capability being revoked from the DIX project')
     .option('--description <item>', 'project description');
 
 

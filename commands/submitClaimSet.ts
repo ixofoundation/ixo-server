@@ -1,7 +1,6 @@
 import {CommandHelper} from "../bin/commandHelper";
-import {readDIDFromFile, readFileFromInput, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
-import {claimSetSchema, createClaimSetJson} from "../src/server/templates/claimSet";
-import {isValidJson} from "../src/server/utils/jsonUtils";
+import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
+import {createClaimSetJson} from "../src/server/templates/claimSet";
 import {createDatabaseTransaction, postTransaction, queryDB} from "../src/server/db/db";
 import {signDocument} from "../src/server/utils/cryptoUtil";
 

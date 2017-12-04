@@ -1,5 +1,5 @@
 import {Validator} from 'jsonschema';
-import {AGENT_ROLE, PROJECT_STATUS} from "../db/models";
+import {AGENT_ROLE, EVALUATION_RESULTS, PROJECT_STATUS} from "../db/models";
 
 export function isValidJson(schema, json): boolean {
     var validator = new Validator();
@@ -27,5 +27,16 @@ export function resolveProjectStatus(statusCode): string {
             return PROJECT_STATUS.IN_PROGRESS.valueOf();
         case 'FINISHED':
             return PROJECT_STATUS.FINISHED.valueOf();
+    }
+}
+
+export function resolveEvaluationResults(resultCode): string {
+    switch (resultCode) {
+        case 'V':
+            return EVALUATION_RESULTS.V.valueOf();
+        case 'F':
+            return EVALUATION_RESULTS.F.valueOf();
+        case 'U':
+            return EVALUATION_RESULTS.U.valueOf();
     }
 }

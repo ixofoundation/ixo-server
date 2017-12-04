@@ -29,8 +29,10 @@ program
     .option('--tolerance <item>', 'tolerance for failed claims ')
     .option('-f, --files <item>', 'tolerance for failed claims ')
     .option('--roleID <item>', 'id of capability being revoked from the DIX project')
+    .option('--claimsetId <item>', 'id of the claimSet')
+    .option('--result <item>', 'result of the evaluation')
+    .option('--comment <item>', 'comment relating to the result of evaluation')
     .option('--description <item>', 'project description');
-
 
 program.parse(process.argv);
 

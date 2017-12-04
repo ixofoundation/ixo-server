@@ -1,7 +1,5 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {readFileFromInput, writeToFile} from "../src/server/utils/fileUtils";
-import {claimSetSchema, createClaimSetJson} from "../src/server/templates/claimSet";
-import {isValidJson} from "../src/server/utils/jsonUtils";
 
 module.exports = function createClaimSetCommand(program) {
     'use strict';
@@ -26,13 +24,10 @@ module.exports = function createClaimSetCommand(program) {
                         claimListJson.push(readFileFromInput(claimListFiles[i]));
                     }
 
-                    var claimSetJson = createClaimSetJson(program.dixProjectID, claimListJson);
-                    if (isValidJson(claimSetSchema, claimSetJson)) {
-                        if (typeof program.output !== 'undefined') {
-                            writeToFile(program.output, claimSetJson);
-                        }
-                        ch.logCliResult("Claim set Result: ", claimSetJson);
+                    if (typeof program.output !== 'undefined') {
+                        writeToFile(program.output, claimListJson);
                     }
+                    ch.logCliResult("Claim set Result: ", claimListJson);
                 }
 
 

@@ -33,11 +33,15 @@ export var claimSetSchema = {
     ]
 };
 
-export function createClaimSetJson(dixID, claimSet, id?) {
+export function createClaimSetJson(dixID, claimSet, id?, templateId?, issuer?, issued?) {
     var claimSetJson = {
         "id" : id,
         "type" : [ "Impact Claim Set"],
+        "templateId": templateId,
         "dixID": dixID,
+        "indicator": "P44428",
+        "issuer": issuer,
+        "issued": issued,
         "claims": claimSet
 
     };

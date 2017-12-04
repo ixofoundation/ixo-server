@@ -1,9 +1,7 @@
 import {CommandHelper} from "../bin/commandHelper";
 import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
 import {signDocument} from "../src/server/utils/cryptoUtil";
-import {createRoleJson} from "../src/server/templates/role";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
-import {runInNewContext} from "vm";
 
 var merge = require('merge');
 

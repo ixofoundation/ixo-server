@@ -39,6 +39,7 @@ module.exports = function submitClaimSetCommand(program) {
                                     writeToFile(result.asset.data.dixID + '_' + result.asset.data.type + '_signed.json', result.asset.data);
                                 }
                             );
+
                         }
                     );
 

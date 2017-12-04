@@ -1,4 +1,4 @@
-import {createDatabaseTransaction, doesDidExist, postTransaction} from "../src/server/db/db";
+import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 import {CommandHelper} from "../bin/commandHelper";
 import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
 import {createProjectJson, projectSchema} from "../src/server/templates/project";

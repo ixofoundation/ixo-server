@@ -3,7 +3,7 @@ import {CommandHelper} from "../bin/commandHelper";
 import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
 import {createProjectJson, projectSchema} from "../src/server/templates/project";
 import {isValidJson, resolveProjectStatus} from "../src/server/utils/jsonUtils";
-var merge = require('merge');
+import {signDocument} from "../src/server/utils/cryptoUtil";
 var dateFormat = require('dateformat');
 
 module.exports = function createProjectCommand(program) {
@@ -37,18 +37,11 @@ module.exports = function createProjectCommand(program) {
                 } else if (typeof program.tolerance === 'undefined') {
                     ch.logCliResult('tolerance is a mandatory parameter');
                 } else {
-                    var template = readFileFromOutput(program.templateId + '.json');
-                    var projectJson = createProjectJson(program.did, dateFormat(new Date(), "isoDateTime"), program.description, program.link, program.start, program.end, template.templateId, parseInt(program.number), parseInt(program.tolerance), parseInt(program.value), program.country, resolveProjectStatus("PENDING"));
-
-                    ch.logCliResult('projectJson', projectJson);
+                    var projectJson = createProjectJson(program.did, dateFormat(new Date(), "isoDateTime"), program.description, program.link, program.start, program.end, program.templateId, parseInt(program.number), parseInt(program.tolerance), parseInt(program.value), program.country, resolveProjectStatus("PENDING"));
+                    ch.logCliResult('Project Results: ', projectJson);
 
                     if (isValidJson(projectSchema, projectJson)) {
-                        postTransaction(createDatabaseTransaction(readDIDFromFile(program.did + '.json'), projectJson, {description: 'New project created by ' + program.did})).then(result => {
-                            ch.logCliResult('Project Added: ', result.asset.data);
-                            if (!(typeof program.output === 'undefined')) {
-                                writeToFile(program.output, merge({"id": result.id}, result.asset.data));
-                            }
-                        });
+                        writeToFile(program.output, projectJson);
                     } else {
                         ch.logCliResult('Invalid project JSON')
                     }

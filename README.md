@@ -22,3 +22,5 @@ webpack --config ./webpack/release.js
     - ./ixo listAgents -c ZA -v
     - ./ixo signDoc -a 5ZSjDeM5wiA8cJFREyk1Je.json -i signDocTest.json -o signedDoc.json -v
     - ./ixo registerTemplate -d 5ZSjDeM5wiA8cJFREyk1Je -i signedDoc.json -v 
+    - ./ixo createProject -d 5ZSjDeM5wiA8cJFREyk1Je --description 'Test Project' -s '2017-11-11' -e '2019-03-03' -t fad1c64186ed67329fe10723f0018a912a6e2b26880b404c5c76bf65331a6f9a --number '1000' --value '2000000' -c RW -l www.ixo.foundation -o newProject.json --tolerance 0.1 -v
+    - ./ixo submitProject -d 5ZSjDeM5wiA8cJFREyk1Je.json -i newProject.json -o projectSubmit.json -v

@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as sovrin from 'sovrin-did';
 import {ISovrinDidModel} from "../db/models";
-import {readFileFromInput, writeToFile} from "./fileUtils";
+import {writeToFile} from "./fileUtils";
 import {createSignatureJson, signatureSchema} from "../templates/signature";
 import {isValidJson} from "./jsonUtils";
 

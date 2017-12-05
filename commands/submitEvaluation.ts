@@ -1,5 +1,5 @@
 import {CommandHelper} from "../bin/commandHelper";
-import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, readFileFromInput, writeToFile} from "../src/server/utils/fileUtils";
 import {signDocument} from "../src/server/utils/cryptoUtil";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 
@@ -21,7 +21,7 @@ module.exports = function submitEvaluationCommand(program) {
                     ch.logCliResult('result is a mandatory parameter');
                 } else {
                     var sdid = readDIDFromFile(program.did);
-                    var evaluation = readFileFromOutput(program.input);
+                    var evaluation = readFileFromInput(program.input);
                     var signature = signDocument(sdid, evaluation);
                     var signedEvaluation = merge(evaluation, signature);
 

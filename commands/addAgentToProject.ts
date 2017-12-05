@@ -1,5 +1,5 @@
 import {CommandHelper} from "../bin/commandHelper";
-import {readDIDFromFile, readFileFromOutput, writeToFile} from "../src/server/utils/fileUtils";
+import {readDIDFromFile, readFileFromInput, writeToFile} from "../src/server/utils/fileUtils";
 import {signDocument} from "../src/server/utils/cryptoUtil";
 import {createDatabaseTransaction, postTransaction} from "../src/server/db/db";
 
@@ -21,7 +21,7 @@ module.exports = function addAgentToProjectCommand(program) {
                     ch.logCliResult('input is a mandatory parameter');
                 } else {
                     //Reads createAddAgentToProjectRequest file from output
-                    var roleInput = readFileFromOutput(program.input);
+                    var roleInput = readFileFromInput(program.input);
 
                     //Generates a signature
                     var signature = signDocument(readDIDFromFile(program.did), roleInput);

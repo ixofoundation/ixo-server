@@ -13,7 +13,8 @@ module.exports = function getAgentCommand(program) {
                 ch.logHeader();
 
                 if (typeof program.did !== 'undefined') {
-                    queryDB(program.did);
+                    queryDB(program.did).then(results =>
+                        ch.logCliResult('Agent details: ', results));
                 } else {
                     ch.logCliResult('did is a mandatory parameter');
                 }

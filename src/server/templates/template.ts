@@ -3,45 +3,44 @@ export var templateSchema = {
     "description": "",
     "type"       : "object",
     "properties" : {
-        "signature": {
+        "templateId": {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "indicator" : {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "created"   : {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "creator"   : {
+            "type"     : "string",
+            "minLength": 1
+        },
+        "data"      : {
             "type"      : "object",
-            "properties": {
-                "type"          : {
-                    "type"     : "string",
-                    "minLength": 1
-                },
-                "created"       : {
-                    "type"     : "string",
-                    "minLength": 1
-                },
-                "creator"       : {
-                    "type"     : "string",
-                    "minLength": 1
-                },
-                "signatureValue": {
-                    "type"     : "string",
-                    "minLength": 1
-                }
-            },
-            "required"  : [
-                "type",
-                "created",
-                "creator",
-                "signatureValue"
-            ]
+            "properties": {},
+            "required"  : []
         }
     },
     "required"   : [
-        "signature"
+        "templateId",
+        "indicator",
+        "created",
+        "creator",
+        "data"
     ]
 };
 
-export function createTemplateJson(templateId, created, creator, indicator) {
+export function createTemplateJson(templateId, created, creator, indicator, data) {
     var template = {
         "templateId": templateId,
         "indicator" : indicator,
         "created"   : created,
         "creator"   : creator,
+        "data"      : data
 
     };
     return template;

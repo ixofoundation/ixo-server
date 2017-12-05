@@ -19,7 +19,7 @@ module.exports = function signDocCommand(program) {
                 } else if (typeof program.output == 'undefined') {
                     ch.logCliResult('output is a mandatory parameter');
                 } else {
-                    ch.logCliResult('Document signed using signature: ' + signDocument(readDIDFromFile(program.agent), readFileFromInput(program.input), program.output));
+                    ch.logCliResult('Document signed using signature: ', signDocument(readDIDFromFile(program.agent), readFileFromInput(program.input), program.output));
                 }
             }
         );

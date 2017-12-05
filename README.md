@@ -13,3 +13,12 @@ webpack --config ./webpack/release.js
     - ``routes/``: Defines the routes for the application using ``react-router``.
     - ``utils.ts/``: Helper methods should be placed under this directory.
     - ``server/``: Contains files which have logic that is executed on the server side.
+
+## CLI Testing
+
+    - ./ixo createDID -v  
+    - ./ixo createAgent -d 5ZSjDeM5wiA8cJFREyk1Je -n Bob -c ZA -p  -v3V8apJ1LjKLZF4R2L6RQmqaRGCsA9vsu99yQ9eQfqVST
+    - ./ixo getAgent -d 5ZSjDeM5wiA8cJFREyk1Je -v
+    - ./ixo listAgents -c ZA -v
+    - ./ixo signDoc -a 5ZSjDeM5wiA8cJFREyk1Je.json -i signDocTest.json -o signedDoc.json -v
+    - ./ixo registerTemplate -d 5ZSjDeM5wiA8cJFREyk1Je -i signedDoc.json -v 

@@ -85,6 +85,7 @@
     "react-redux": "4.4.8",
     "react-router": "3.0.5",
     "react-tooltip": "3.4.0",
+    "react-web3": "^0.4.3",
     "redux": "3.5.2",
     "redux-logger": "2.6.1",
     "redux-thunk": "2.1.0",

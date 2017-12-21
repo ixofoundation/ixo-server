@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {browserHistory, Router} from 'react-router';
 import {createPublicSiteStore} from "../redux/public_site/store";
 import {publicSiteRoutes} from "../routes/public_site_routes";
+import {Web3Provider} from 'react-web3';
 
 /**
  * This method of initialization allows to pass variables from
@@ -13,44 +14,46 @@ import {publicSiteRoutes} from "../routes/public_site_routes";
  * external libraries which require special configuration
  */
 window['TGE_SERVER_APP'] = window['TGE_SERVER_APP'] || (() => {
-    const store : any = ((initialState? : any) => {
-        const state = {};
-        return {
-            set(key, value) {
-                state[key] = value
-            },
-            get(key) {
-                return state[key]
-            }
-        }
-    })();
-
+  const store: any = ((initialState?: any) => {
+    const state = {};
     return {
+      set(key, value) {
+        state[key] = value
+      },
+      get(key) {
+        return state[key]
+      }
+    }
+  })();
 
-        /** Perform all actions needed to initialize the app */
-        initialize: (preloadedState: IPublicSiteStoreState, revManifest) => {
-            window['TGE_SERVER_APP'].initializeVersions(revManifest);
-            window['TGE_SERVER_APP'].renderApp(preloadedState);
-        },
+  return {
 
-        /** Initialize versions */
-        initializeVersions: initVersions,
+    /** Perform all actions needed to initialize the app */
+    initialize: (preloadedState: IPublicSiteStoreState, revManifest) => {
+      window['TGE_SERVER_APP'].initializeVersions(revManifest);
+      window['TGE_SERVER_APP'].renderApp(preloadedState);
+    },
 
-        /* Handle every route update */
-        handleRouteUpdate() {
+    /** Initialize versions */
+    initializeVersions: initVersions,
 
-        },
+    /* Handle every route update */
+    handleRouteUpdate() {
 
-        /** Render the application in DOM */
-        renderApp: (preloadedState: IPublicSiteStoreState) => {
-            ReactDOM.render(
-                <Provider store={createPublicSiteStore(preloadedState)}>
-                    <Router history={browserHistory} onUpdate={window['TGE_SERVER_APP'].handleRouteUpdate}>
-                        { publicSiteRoutes }
-                    </Router>
-                </Provider>,
-                document.getElementById('root')
-            );
-        }
-    };
+    },
+
+    /** Render the application in DOM */
+    renderApp: (preloadedState: IPublicSiteStoreState) => {
+      ReactDOM.render(
+        <Web3Provider>
+          <Provider store={createPublicSiteStore(preloadedState)}>
+            <Router history={browserHistory} onUpdate={window['TGE_SERVER_APP'].handleRouteUpdate}>
+              {publicSiteRoutes}
+            </Router>
+          </Provider>
+        </Web3Provider>,
+        document.getElementById('root')
+      );
+    }
+  };
 })();
